@@ -1,0 +1,247 @@
+%\VignetteIndexEntry{HiveR: 2D and 3D Hive Plots for R}
+%\VignetteDepends{RColorBrewer, grid, rgl, RFOC}
+%\VignettePackage{HiveR}
+
+\documentclass[10pt]{article}
+
+\SweaveOpts{echo = T, pdf = T, eps = F, eval = T, keep.source = T, prefix.string = graphics/vig}
+\usepackage{Sweave}
+\setkeys{Gin}{width = 0.6\textwidth} % part of Sweave I believe; 0.8 is the default
+
+\graphicspath{{./graphics/}}
+
+\usepackage{mathpazo}
+\usepackage{color}
+\usepackage{hyperref, url}
+\usepackage{graphicx}
+\usepackage[margin = 2.0cm]{geometry}
+\geometry{letterpaper}
+\usepackage[parfill]{parskip}    % Activate to begin paragraphs with an empty line rather than an indent
+%\usepackage{pdflscape} % Use to turn the whole document or individual pages
+\usepackage{fancyhdr}
+%\usepackage{xtab}
+
+\usepackage[square, comma, numbers, sort&compress]{natbib} % allows grouping of references [1-4, 8]
+
+\usepackage{ccaption} % Stuff to change the format of a figure caption
+\captionnamefont{\bfseries\large}
+\captiontitlefont{\bfseries\large}
+
+\setlength{\belowcaptionskip}{10pt} % not part of ccaption
+
+\renewcommand*\familydefault{\sfdefault} % Use if the base font of the document is to be sans serif
+
+%%%%%     End of Configuration Stuff    %%%%%
+
+\title{The \texttt{HiveR} Package (v 0.1-1)}
+\author{Bryan A. Hanson\\
+\\
+DePauw University\\
+Department of Chemistry \& Biochemistry\\
+Greencastle Indiana USA\\
+\\
+e-mail: \href{mailto:hanson@depauw.edu}{hanson@depauw.edu}\\
+\\
+\href{http://github.com/bryanhanson/HiveR}{github.com/bryanhanson/HiveR}\\
+%\href{http://CRAN.R-project.org/package=ChemoSpec}{CRAN.R-project.org/package=ChemoSpec}\\
+}
+\date{\today}
+
+%%%%%%%%%
+\begin{document}
+
+\maketitle
+
+This document describes some features of the \texttt{HiveR} package including current features and future plans.  The current release contains what I believe to be the core set of needed functions and I believe they are robust, but time will tell.  Many more features remain to be added; see the sections below.  Details on functions can be found by typing \texttt{?HiveR} in the \texttt{R} console after installing \texttt{HiveR}.
+
+\section{Inspiration and Motivation} %%%%%
+
+\texttt{HiveR} was inspired by the concept of hive plots as developed by Martin Krzywinski at the Genome Science Center (\href{http://www.hiveplots.net/}{www.hiveplots.net}).  Hive plots are reaction to "hair ball" style networks in which the layout of the network is somewhat arbitrary.  The key innovation in a hive plot is that nodes are assigned to axes based upon some parameter, and the position of the node along the axis is also a function of a parameter.  "Parameters" as used here refers to either qualitative or quantitative, but reproducible, characteristics relevant to the system at hand.  In a hive plot edges are drawn in a pretty standard way, but may be colored or have a width/weight which encodes an interesting value.  Overall, in a hive plot properties of a system can be assigned as follows.  The mapping is limited only by one's creativity.
+
+\begin{itemize}
+  \item The axis to which a node is assigned.
+  \item The position/radius of a node.
+  \item Color of a node.
+  \item Size of a node.
+  \item Color of an edge.
+  \item Width/weight of an edge.
+\end{itemize}
+
+Inspired by the examples given by Kryzwinski in his materials on the web, I created the \texttt{R} package  \texttt{FuncMap} in December 2010.  This single function package maps the function calls made by an \texttt{R} package into 3 types: sources, which are functions that make only outgoing calls, sinks, which take only incoming calls, and managers, which do both.  Figure~\ref{FuncMap} shows an example of such a plot which is basically a type of hive plot.
+
+\texttt{HiveR} takes things a step further.  \texttt{HiveR} is intended as an implementation of hive plots in \texttt{R}, not a port of linnet (Krzywinski's program that actually draws hive plots).  As such, it does some things differently, and not all features are implemented (and they may or may not be in the future).  The key innovation in \texttt{HiveR} is that for 4 to 6 axes, the plots are 3D and interactive.  These 3D plots were inspired by VSEPR theory in chemistry in that the framework of these 3D plots are tetrahedral, trigonal bipyramidal or octahedral respectively.
+
+<< SetUp, echo = F, results = hide, eval = TRUE>>=
+library(lattice) # these are only needed for the automatic vignette build, which occurs 
+library(mvbutils) # in a clean environment
+library(grid)
+library(FuncMap)
+library(HiveR)
+if (!file.exists("graphics")) dir.create("graphics")
+@
+
+\begin{figure}
+\caption{FuncMap for package lattice}
+\label{FuncMap}
+\begin{center}
+<< FuncMapExample, fig = TRUE, echo = FALSE, width = 5, height = 5 >>=
+fw <- foodweb(where = "package:lattice", plotting = FALSE)
+ans <- FuncMap(fwb = fw, pkg = "lattice", method = "abs")
+@
+\end{center}
+\end{figure}
+
+\section{\texttt{HiveR} Features} %%%%%
+
+\subsection{Internal Storage}
+
+\texttt{HiveR} stores the information needed to create a hive plot in a \texttt{HivePlotData} object which is an S3 class.  Utilities are provided to summarize the contents of these objects and to check their integrity (functions \texttt{sumHPD} and \texttt{chkHPD} respectively).
+
+\subsection{Generation of Random Network Data Sets}
+
+\texttt{HiveR} has the ability to generate random network data sets with between 2 and 6 axes, using function \texttt{ranHiveData}.  These are useful for testing and demonstration purposes and will be used in the examples below.
+
+\subsection{Import of Real Data Sets}
+
+Work has begun on a largely automated means of importing real data sets in .dot format.  Look for this feature in a future release.
+
+\subsection{Making Hive Plots}
+
+Figures~\ref{HP2} and \ref{HP3} show hive plots of random networks using absolute scaling.  Note that for 4 to 6 axes, plots are interactive and cannot be shown here.  See the help page for \texttt{plot3dHive} for an example you can run.  Figure~\ref{HP4} shows the 3 axis example with the nodes displayed by rank.
+
+\begin{figure}
+\caption{A randomly generated hive plot with 2 axes}
+\label{HP2}
+\begin{center}
+<< HP2, fig = TRUE, echo = FALSE, width = 5, height = 2.5 >>=
+hp2 <- ranHiveData(nx = 2)
+plotHive(hp2)
+@
+\end{center}
+\end{figure}
+
+\begin{figure}
+\caption{A randomly generated hive plot with 3 axes}
+\label{HP3}
+\begin{center}
+<< HP3, fig = TRUE, echo = FALSE, width = 5, height = 5 >>=
+hp3 <- ranHiveData(nx = 3)
+plotHive(hp3)
+@
+\end{center}
+\end{figure}
+
+\begin{figure}
+\caption{A randomly generated hive plot with 3 axes (nodes by rank)}
+\label{HP4}
+\begin{center}
+<< HP4, fig = TRUE, echo = FALSE, width = 5, height = 5 >>=
+plotHive(hp3, method = "rank")
+@
+\end{center}
+\end{figure}
+
+\section{A Simple Demonstration Using a Plant-Pollinator Network} %%%%%
+
+\texttt{HiveR} currently contains two built-in data sets, \texttt{Safari} and \texttt{Arroyo}.\footnote{Be warned: I am  not an ecologist and these data sets and plots are merely an example}  These are plant-pollinator data sets which were derived from Vasquez and Simberloff, 2003 \cite{Vazquez2003}.  These are two-trophic level systems that have almost exactly the same plants and pollinators.  \texttt{Safari} is from an undisturbed area, while \texttt{Arroyo} is from a nearby location grazed by cattle.  In these data sets, plants are on one axis, and pollinators are on the other.  Each organism was assigned a radius on the axis based by calculating $d'$ using function \texttt{dfun} in package \texttt{bipartite}.  $d$' is an index of specialization; higher values mean the plant or pollinator is more specialized.  Edge weights were assigned proportional to the square root of the normalized number of visits of a pollinator to a plant.  Thus the width of the edge drawn is an indication of the visitation rate.  The number of visits was divided manually into 4 groups and used to assign edge colors ranging from white to red.  The redder colors represent greater numbers of visits, and the color-coding is comparable for each data set.  Thus both the edge color and the edge weight encode the same information.  It would of course be possible to encode an additional variables by changing either edge color or weight, or node size.
+
+Figures~\ref{PPN1} and \ref{PPN4} are two means of plotting \texttt{Safari} using package \texttt{bipartite}.  Figures~\ref{PPN2} and \ref{PPN3} show \texttt{Safari} and \texttt{Arroyo} respectively, using \texttt{plotHive}.  These plots show a rich amount of information not available from the more standard plots.  It is very clear that the network connections are fundamentally different:
+
+\begin{itemize}
+  \item The degree of specialization with each network is different, with many more visitors between specialized plants and pollinators in \texttt{Safari}.
+  \item Tthere are more plants in \texttt{Arroyo} (plants are on the short axis).
+  \item The huge number of visits encoded in red in \texttt{Safari} (the ungrazed site) is missing in \texttt{Arroyo}.
+\end{itemize}
+
+\begin{figure}
+\caption{Safariland data set using visweb}
+\label{PPN1}
+\begin{center}
+<< PPN1, fig = TRUE, echo = FALSE, width = 5, height = 5 >>=
+require(bipartite)
+data(Safariland)
+visweb(Safariland)
+@
+\end{center}
+\end{figure}
+
+\begin{figure}
+\caption{Safariland data set using plotweb}
+\label{PPN4}
+\begin{center}
+<< PPN4, fig = TRUE, echo = FALSE, width = 5, height = 5 >>=
+plotweb(Safariland)
+@
+\end{center}
+\end{figure}
+
+\begin{figure}
+\caption{Safari data set using plotHive}
+\label{PPN2}
+\begin{center}
+<< PPN2, fig = TRUE, echo = FALSE, width = 5, height = 2.5 >>=
+data(Safari)
+plotHive(Safari)
+@
+\end{center}
+\end{figure}
+
+\begin{figure}
+\caption{Arroyo data set using plotHive}
+\label{PPN3}
+\begin{center}
+<< PPN3, fig = TRUE, echo = FALSE, width = 5, height = 2.5 >>=
+data(Arroyo)
+plotHive(Arroyo)
+@
+\end{center}
+\end{figure}
+
+\section{Comparison to linnet} %%%%%
+
+linnet (for linear networks) is the program written by Krzywinski that draws hive plots.  Here are some notes about how \texttt{HiveR} compares to linnet.
+
+\begin{enumerate}
+  \item To show more information, in linnet one can clone an axis.  In \texttt{HiveR}, the same notion exists but rather than a clone of an existing axis, one simply adds a new axis based upon some property of the system.
+  \item No segmentation of an axis is currently possible with \texttt{HiveR}.
+\end{enumerate}
+
+\section{Things to Do} %%%%%
+
+\begin{enumerate}
+  \item Add magnification of an axis.  Use manipAxis.
+  \item Add inversion of an axis. Use manipAxis.
+  \item Tasks Related to Input of Real Data
+	\begin{enumerate}
+  		\item Need a parser for .dot format (in progress).
+  		\item Write map2Axis which will assign nodes to a position on a particular axis and make good configuration choices.
+		\item Find a medium sized real data set.
+		\item Bring in the \emph{E. coli} data set.
+	\end{enumerate}
+  \item Work on speed: for 3D hive plots, drawing many edges can be prohibitively slow.  Testing has shown that the problem is not \texttt{rcsr}, so need to look other places when profiling the code.
+\end{enumerate}
+
+\section{Features to Add Long Term} %%%%%
+
+\begin{enumerate}
+  \item Hive Panels: set up a GUI or other display mechanism which can display multiple views of the same hive from different perspectives, or different hives from the same perspective.
+  \item The current 3D spline calculation produces an asymmetric spline.  It could be made more symmetric.
+  \item Add the ability to subtract 2 hive plots and display the result.
+  \item Set up animations.  Perhaps include the possibility of running two animations of related hives side by side.
+  \item Set up a mechanism to automatically permute the axes when nx = 5 or 6 so that the best option can be selected.
+  \item Set up mouse controls.
+\end{enumerate}
+
+
+\section{Notes, Technical and Other} %%%%%
+\begin{enumerate}
+  \item Hive plots are not directed graphs
+\end{enumerate}
+
+\begin{flushleft}
+\bibliographystyle{ieeetr} % Cause refs to be numbered and collected in order used
+\addcontentsline{toc}{section}{References}
+\bibliography{HiveR}
+\end{flushleft}
+
+\end{document}
