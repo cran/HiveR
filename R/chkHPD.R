@@ -29,7 +29,7 @@ function(HPD, confirm = FALSE) {
 	if (!class(HPD$axis.cols) == "character") { warning("axis.cols appears to be corrupt"); w <- TRUE }
 	if (!class(HPD$center.hole) == "numeric") { warning("center.hole appears to be corrupt"); w <- TRUE }
 
-	if (!length(unique(HPD$nodes$axis) == HPD$dim)) { warning("An axis has no nodes on it"); w <- TRUE }
+	if (!((HPD$type == "2D") | (HPD$type == "3D"))) { warning("Type must be 2D or 3D"); w <- TRUE }
 
 	if ((!w) && (confirm)) cat("You must be awesome: This hive plot data looks dandy!")
 	if (w) {

@@ -7,12 +7,15 @@ Generate random hive plot data
 This function generates random data sets which can be used to make a hive plot.
 }
 \usage{
-ranHiveData(nx = 4, nn = nx * 15, ne = nx * 15, rad = 1:100,
+ranHiveData(type = "2D", nx = 4, nn = nx * 15, ne = nx * 15, rad = 1:100,
 	ns = 1:3, ew = 1:3, nc = brewer.pal(5, "Set1"),
 	ec = brewer.pal(5, "Set1"), axis.cols = brewer.pal(nx, "Set1"),
 	desc = NULL, center.hole = 0.1, verbose = FALSE)
 }
 \arguments{
+  \item{type}{
+The type of hive plot to be generated.  One of \code{c("2D", "3D")}.
+}
   \item{nx}{
 An integer giving the number of axes to be created (\code{2 =< nx =< 6}).
 }
@@ -51,11 +54,14 @@ Logical; If \code{TRUE}, the generation, processing and final result is reported
 }
 }
 \details{
-After the function creates an initial set of random nodes and edges, these are cleaned up by removing the following cases (which the rest of \code{HiveR} is not intended to handle at this time): duplicated nodes, nodes that are not part of any edge, edges that begin and end on the same point, edges that begin and end on the same axis, and finally, for \code{nx = 5 or 6}, edges that begin and end on colinear axes.  Most of these don't cause an error, but produce some ugly results.
+For \code{type = "2D"}, after the function creates an initial set of random nodes, these are randomly chosen and connected between adjacent axes, so that no edge crosses an axis.
+ 
+For \code{type = "3D"}, after the function creates an initial set of random nodes and edges, these are cleaned up by removing the following cases (which the rest of \code{HiveR} is not intended to handle at this time): duplicated nodes, nodes that are not part of any edge, edges that begin and end on the same point, edges that begin and end on the same axis, and finally, for \code{nx = 5 or 6}, edges that begin and end on colinear axes.  Most of these don't cause an error, but produce some ugly results.
 
 For the arguments \code{rad, ns, ew, nc} and \code{ec}, the values given are sampled randomly (with replacement) and assigned to particular nodes or edges.
-
-Finally, a check is made (via \code{\link{chkHPD}}) to verify that the number of axes requested were actually created: for small data sets, there may not be any nodes on a particular axis.  If this is the case, a warning is issued.
+}
+\section{warning}{
+If you create a very small data set with few nodes, there may be no nodes assigned to some axes which will give an error when you try to plot the data.  It's up to the user to check for this possibility.
 }
 \value{
 An object of S3 class \code{\link{HivePlotData}}.

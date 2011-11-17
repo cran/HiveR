@@ -13,9 +13,7 @@ rcsr <- function(p0, cp, p1) {
 	# p0 and p1 are end points, cp is the control point
 	
 	# rcsr = rotate, compute spline, rotate back
-	
-	require(RFOC) # For rotation matrices
-	
+		
 	m <- matrix(c(0, 0, 0, p0, cp, p1), nrow = 4, byrow = TRUE)
 
 # Align p0 with the +y axis by rotating around x and z axes
@@ -55,9 +53,6 @@ rcsr <- function(p0, cp, p1) {
 
 # Compute spline curve
 	n3 <- n3[-1,] # remove origin point
-	plot.new() # not sure why this must be called, but it must
-	# see http://r.789695.n4.nabble.com/xspline-draw-FALSE-fails-if-there-is-no-open-device-PR-10727-td918689.html
-	# Can also just leave an empty graphics window open 
 	sp <- xspline(n3[,1], n3[,2], draw = FALSE, shape = -1)
 	sp2 <- matrix(c(sp$x, sp$y, rep(0, length(sp$x))), ncol = 3) # add back the z coord (all 0's)
 

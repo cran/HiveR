@@ -34,6 +34,10 @@ drawHiveSpline <- function(HPD, ...) {
 		
 	ds <- data.frame(ax1, rad1, ax2, rad2)
 	ds$phi1 <- ds$phi2 <- ds$th1 <- ds$th2 <- rep(NA, length(ds$ax1))
+
+	plot.new() # not sure why this must be called, but it must
+	# see http://r.789695.n4.nabble.com/xspline-draw-FALSE-fails-if-there-is-no-open-device-PR-10727-td918689.html
+	# Can also just leave an empty graphics window open 
 	
 ##### 4D, This requires a 3D spline curve to be drawn
 
