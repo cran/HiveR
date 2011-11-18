@@ -8,11 +8,12 @@ function(HPD, plot.list = FALSE, tex = FALSE){
 
 	chkHPD(HPD) # verify it's legit
 	
-	cat("\n", HPD$desc, "\n\n")
+	cat("\n\t", HPD$desc, "\n")
 	cat("\tThis hive plot data set contains ",
 		length(HPD$nodes$id), " nodes on ",
 		length(unique(HPD$nodes$axis)), " axes and ",
-		length(HPD$edges$id1), " edges.\n\n", sep = "")
+		length(HPD$edges$id1), " edges.\n", sep = "")
+	cat("\tIt is a  ", HPD$type, " data set.\n\n", sep = "")
 
 	if (plot.list) {
 		# Create a list of edges to be drawn in a helpful format

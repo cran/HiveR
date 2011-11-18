@@ -13,7 +13,8 @@ plot3dHive <- function(HPD, dr.nodes = TRUE,
 	nx <- length(unique(HPD$nodes$axis))
 	if (nx == 1) stop("Something is wrong: only one axis seems to be present")
 	if ((nx == 2) | (nx == 3)) stop("Use plotHive for hive plots with 2 or 3 axes")
-
+	if (HPD$type == "2D") stop("Use plotHive for hive plots of type = 2D")
+	
 	# Send out for ranking/norming if requested
 	
 	if ((method == "rank") | (method == "norm")) HPD <- manipAxis(HPD, method)

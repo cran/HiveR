@@ -1,0 +1,22 @@
+The file ecoli.dot contains the gene regulatory network of E. coli as discussed in:
+
+Yan KK, Fang G, Bhardwaj N, Alexander RP, Gerstein M. 2010. Comparing genomes to computer operating systems in terms of the topology and evolution of their regulatory control networks. Proc Natl Acad Sci U S A 107(20): 9186-9191.
+
+However, the original publication of the regulatory network traces to:
+
+Gama-Castro S, Salgado H, Peralta-Gil M, Santos-Zavaleta A, Muniz-Rascado
+L, Solano-Lira H et al (2011). RegulonDB version 7.0: transcriptional
+regulation of Escherichia coli K-12 integrated within genetic sensory
+response units (Gensor Units). Nucleic Acids Research 39: D98-D105.
+
+http://www.ncbi.nlm.nih.gov/pubmed/21051347?dopt=Abstract
+
+This data set has been extended by Martin Krzywinski of the Genome Science Center by the addition of persistence and edge classifiers as described below.
+
+Nodes are classified as 'persistent' or 'nonpersistent' according to the definition in the original paper (Yan et al). Edges are classified using a type=N label where N=0,1,2,3 defined as follows. For E. coli
+
+type=0  - E. coli gene names share 0 common start characters (crp acea)
+type=1  - E. coli gene names share 1 common start characters (arca acee)
+type=2  - E. coli gene names share 2 common start characters (argr arti)
+type=3  - E. coli gene names share 3 common start characters (acrr acrb)
+

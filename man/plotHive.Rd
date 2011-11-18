@@ -26,7 +26,7 @@ Additional parameters to be passed downstream.
 }
 }
 \details{
-\code{plotHive} uses \code{grid} graphics to produce a 2D hive plot in a style similar to the original concept.  \code{plot3dHive} produces a 3D hive plot using \code{\link{rgl}} graphics.
+\code{plotHive} uses \code{grid} graphics to produce a 2D hive plot in a style similar to the original concept.  For a 2D plot, axis number 1 is vertical except in the case of 2 axes.  \code{plot3dHive} produces a 3D hive plot using \code{\link{rgl}} graphics.
 }
 \value{
 None.  Side effect is a plot.
