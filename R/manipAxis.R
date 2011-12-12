@@ -1,6 +1,6 @@
 
 
-manipAxis <- function(HPD, method) {
+manipAxis <- function(HPD, method, action = NULL) {
 	
 	# Function to rank or norm a Hive Plot Object
 	# Part of Hive3dR
@@ -168,7 +168,74 @@ manipAxis <- function(HPD, method) {
 
 		} # end of method == "norm"
 	
+	if (method == "scale") {
+	
+		if (is.null(action)) stop("You must supply action")	
+		if (!length(action) == length(unique(nodes$axis))) stop("length(action) did not match no. axes")
+		
+		if (nx == 2) {
+			nodes$radius[n1] <- nodes$radius[n1]*action[1]
+			nodes$radius[n2] <- nodes$radius[n2]*action[2]
+			}
+
+		if (nx == 3) {
+			nodes$radius[n1] <- nodes$radius[n1]*action[1]
+			nodes$radius[n2] <- nodes$radius[n2]*action[2]
+			nodes$radius[n3] <- nodes$radius[n3]*action[3]
+			}
+
+		if (nx == 4) {
+			nodes$radius[n1] <- nodes$radius[n1]*action[1]
+			nodes$radius[n2] <- nodes$radius[n2]*action[2]
+			nodes$radius[n3] <- nodes$radius[n3]*action[3]
+			nodes$radius[n4] <- nodes$radius[n4]*action[4]
+			}
+
+		if (nx == 5) {
+			nodes$radius[n1] <- nodes$radius[n1]*action[1]
+			nodes$radius[n2] <- nodes$radius[n2]*action[2]
+			nodes$radius[n3] <- nodes$radius[n3]*action[3]
+			nodes$radius[n4] <- nodes$radius[n4]*action[4]
+			nodes$radius[n5] <- nodes$radius[n5]*action[5]
+			}
+
+		if (nx == 6) {
+			nodes$radius[n1] <- nodes$radius[n1]*action[1]
+			nodes$radius[n2] <- nodes$radius[n2]*action[2]
+			nodes$radius[n3] <- nodes$radius[n3]*action[3]
+			nodes$radius[n4] <- nodes$radius[n4]*action[4]
+			nodes$radius[n5] <- nodes$radius[n5]*action[5]
+			nodes$radius[n6] <- nodes$radius[n6]*action[6]
+			}
+
+		} # end of method == "scale"
+
+	if (method == "invert") {
+	
+		if (is.null(action)) stop("You must supply action")	
+		if (!length(action) == length(unique(nodes$axis))) stop("length(action) did not match no. axes")
+	
+		for (n in 1:length(action)) {
+			
+			if (action[n] == -1) {
+				xx <- which(nodes$axis == n)
+				print(xx)
+				print(nodes$radius[xx])
+				nodes$radius[xx] <- nodes$radius[xx]*-1 + min(nodes$radius[xx])*2 + diff(range(nodes$radius[xx]))
+				print(nodes$radius[xx])
+				}
+			}	
+		} # end of method == "invert"
+
+	if (method == "ranknorm") { # rank first, then norm
+	
+		HPD <- manipAxis(HPD, method = "rank")
+		HPD <- manipAxis(HPD, method = "norm")
+		
+		} # end of method == "ranknorm"
+
 	HPD[[1]] <- nodes
+	chkHPD(HPD)
 	HPD
 	}
 	

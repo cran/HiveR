@@ -9,7 +9,7 @@ In package \code{HiveR}, hive plot data sets are stored as an S3 class called \c
 }
 
 \section{Structure}{
-The structure of a \code{HivePlotData} object is a list of 7 elements, some of which are data frames, and an attribute, as follows:
+The structure of a \code{HivePlotData} object is a list of 6 elements, some of which are data frames, and an attribute, as follows:
 
 \tabular{llll}{
 \emph{element} \tab \emph{(element)} \tab \emph{type}  \tab \emph{description}\cr
@@ -28,12 +28,14 @@ $edges \tab \tab data frame \tab Data frame of edge properties \cr
 $type \tab \tab chr \tab Type of hive. See Note. \cr
 $desc \tab \tab chr \tab Description of data \cr
 $axis.cols \tab \tab chr \tab Colors for axes \cr
-$center.hole \tab \tab num \tab Size of center hole.  See Note. \cr
 - attr \tab \tab chr "HivePlotData" \tab The S3 class designation.\cr
 }
 }
 \note{
-See \code{\link{centerHole}} for details on how the value of \code{center.hole} affects the final hive plot.  While \code{$edges$id1} and \code{$edges$id2} are defined as the starting and ending nodes of a particular edge, hive plots as currently implemented are not directed graphs (agnostic might be a better word). \code{HPD$type} indicates the type of hive data: If \code{2D}, then the data is intended to be plotted with \code{hivePlot} which is a 2D plot with axes radially oriented, and (hopefully) no edges that cross axes.  If \code{3D}, then the data is intended to be plotted with \code{plot3dHive} which gives an interactive 3D plot, with axes oriented in 3D.
+While \code{$edges$id1} and \code{$edges$id2} are defined as the starting and ending nodes of a particular edge, hive plots as currently implemented are not directed graphs (agnostic might be a better word).
+\cr
+\cr
+\code{HPD$type} indicates the type of hive data: If \code{2D}, then the data is intended to be plotted with \code{hivePlot} which is a 2D plot with axes radially oriented, and (hopefully) no edges that cross axes.  If \code{3D}, then the data is intended to be plotted with \code{plot3dHive} which gives an interactive 3D plot, with axes oriented in 3D.
 }
 \seealso{
 \code{\link{sumHPD}} to summarize a \code{HivePlotData} object.\cr

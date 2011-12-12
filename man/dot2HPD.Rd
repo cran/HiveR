@@ -1,14 +1,14 @@
 \name{dot2HPD}
 \alias{dot2HPD}
 \title{
-Process a .dot graph file into a HivePlotData Object
+Process a .dot graph file into a HivePlotData object
 }
 \description{
 This function will read a .dot file containing a graph specification in the DOT language, and using two other files, convert the information into a \code{\link{HivePlotData}} object.
 }
 \usage{
 dot2HPD(file = NULL, node.inst = NULL, edge.inst = NULL, axis.cols = NULL,
-	center.hole = 0.15, type = "2D", desc = NULL, ...)
+	type = "2D", desc = NULL, ...)
 }
 \arguments{
   \item{file}{
@@ -22,9 +22,6 @@ The path to a .csv file containing instructions about how to map edge tags in th
 }
   \item{axis.cols}{
 A character vector giving the colors desired for the axes.
-}
-  \item{center.hole}{
-The size of the center hole in the hive plot; see \code{\link{centerHole}} for how this parameter is used to make the plot.
 }
   \item{type}{
 One of \code{c("2D", "3D")}.  If \code{2D}, a \code{HivePlotData} object suitable for use with \code{\link{plotHive}} will be created and the eventual hive plot will be static and 2D.  If \code{3D}, the \code{HivePlotData} object will be suitable for a 3D interactive plot using \code{\link{plot3dHive}}.
@@ -53,5 +50,8 @@ Bryan A. Hanson, DePauw University. \email{hanson@depauw.edu}
 }
 \seealso{
 See the vignette for an example of using this function.  Use \code{> vignette("HiveR")} to produce the vignette.
+\cr
+\cr
+\code{\link{adj2HPD}} for a means of importing adjacency matrices.
 }
 \keyword{ utilities }

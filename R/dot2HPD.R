@@ -1,8 +1,7 @@
 
 
 dot2HPD <- function (file = NULL, node.inst = NULL, edge.inst = NULL,
-	axis.cols = NULL, center.hole = 0.15,
-	type = "2D", desc = NULL, ...) {
+	axis.cols = NULL, type = "2D", desc = NULL, ...) {
 	
 # Function to read dot files and convert to HPD
 # Bryan Hanson, DePauw Univ, July 2011
@@ -147,9 +146,8 @@ dot2HPD <- function (file = NULL, node.inst = NULL, edge.inst = NULL,
 	if (is.null(axis.cols)) axis.cols <- brewer.pal(length(unique(HPD$nodes$axis)), "Set1")
 	HPD$axis.cols <- axis.cols
 	
-	HPD$center.hole <- center.hole
 	HPD$nodes$axis <- as.integer(HPD$nodes$axis)
-	HPD$nodes$size <- as.integer(HPD$nodes$size)
+	HPD$nodes$size <- as.numeric(HPD$nodes$size)
 	HPD$nodes$color <- as.character(HPD$nodes$color)
 	HPD$nodes$lab <- as.character(HPD$nodes$lab)
 	
@@ -158,7 +156,6 @@ dot2HPD <- function (file = NULL, node.inst = NULL, edge.inst = NULL,
 	HPD$edges$weight <- as.numeric(HPD$edges$weight)
 	HPD$edges$color <- as.character(HPD$edges$color)
 	
-	HPD$axes <- length(unique(HPD$nodes$axis))
 	HPD$type <- type
 	
 	class(HPD) <- "HivePlotData"

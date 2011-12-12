@@ -17,6 +17,7 @@ function(HPD, confirm = FALSE) {
 	if (!class(HPD$nodes$lab) == "character") { warning("nodes$lab appears to be corrupt"); w <- TRUE }
 	if (!class(HPD$nodes$axis) == "integer") { warning("nodes$axis appears to be corrupt"); w <- TRUE }
 	if (!class(HPD$nodes$color) == "character") { warning("nodes$color appears to be corrupt"); w <- TRUE }
+	if (!class(HPD$nodes$size) == "numeric") { warning("nodes$size appears to be corrupt"); w <- TRUE }
 
 	if (!class(HPD$edges) == "data.frame") { warning("The edges data appear to be corrupt"); w <- TRUE }
 	if (!class(HPD$edges$id1) == "integer") { warning("edges$id1 appears to be corrupt"); w <- TRUE }
@@ -27,7 +28,6 @@ function(HPD, confirm = FALSE) {
 
 	if (!class(HPD$desc) == "character") { warning("The description appears to be corrupt"); w <- TRUE }
 	if (!class(HPD$axis.cols) == "character") { warning("axis.cols appears to be corrupt"); w <- TRUE }
-	if (!class(HPD$center.hole) == "numeric") { warning("center.hole appears to be corrupt"); w <- TRUE }
 
 	if (!((HPD$type == "2D") | (HPD$type == "3D"))) { warning("Type must be 2D or 3D"); w <- TRUE }
 

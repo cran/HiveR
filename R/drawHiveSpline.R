@@ -1,6 +1,6 @@
 
 
-drawHiveSpline <- function(HPD, ...) {
+drawHiveSpline <- function(HPD, L_A = FALSE, ...) {
 	
 	# Function to locate a 3d spline curve in a particular n dimensional
 	# system & figure out the control point
@@ -34,10 +34,6 @@ drawHiveSpline <- function(HPD, ...) {
 		
 	ds <- data.frame(ax1, rad1, ax2, rad2)
 	ds$phi1 <- ds$phi2 <- ds$th1 <- ds$th2 <- rep(NA, length(ds$ax1))
-
-	plot.new() # not sure why this must be called, but it must
-	# see http://r.789695.n4.nabble.com/xspline-draw-FALSE-fails-if-there-is-no-open-device-PR-10727-td918689.html
-	# Can also just leave an empty graphics window open 
 	
 ##### 4D, This requires a 3D spline curve to be drawn
 
@@ -72,7 +68,7 @@ drawHiveSpline <- function(HPD, ...) {
 		for (n in 1:nrow(pt1)) {
 			spl <- rcsr(p0 = pt1[n,], cp = cp[n,], p1 = pt2[n,])
 			lines3d(x = spl[,1], y = spl[,2], z = spl[,3],
-				line_antialias = TRUE, col = edges$color[n], lwd = edges$weight[n])		
+				line_antialias = L_A, col = edges$color[n], lwd = edges$weight[n])		
 			}
 	
 		} # end of nx = 4
@@ -111,7 +107,7 @@ drawHiveSpline <- function(HPD, ...) {
 		for (n in 1:nrow(pt1)) {
 			spl <- rcsr(p0 = pt1[n,], cp = cp[n,], p1 = pt2[n,])
 			lines3d(x = spl[,1], y = spl[,2], z = spl[,3],
-				line_antialias = TRUE, col = edges$color[n], lwd = edges$weight[n])		
+				line_antialias = L_A, col = edges$color[n], lwd = edges$weight[n])		
 			}
 	
 		} # end of nx = 5
@@ -152,7 +148,7 @@ drawHiveSpline <- function(HPD, ...) {
 		for (n in 1:nrow(pt1)) {
 			spl <- rcsr(p0 = pt1[n,], cp = cp[n,], p1 = pt2[n,])
 			lines3d(x = spl[,1], y = spl[,2], z = spl[,3],
-				line_antialias = TRUE, col = edges$color[n], lwd = edges$weight[n])		
+				line_antialias = L_A, col = edges$color[n], lwd = edges$weight[n])		
 			}
 	
 		} # end of nx = 6

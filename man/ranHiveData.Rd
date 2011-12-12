@@ -8,9 +8,9 @@ This function generates random data sets which can be used to make a hive plot.
 }
 \usage{
 ranHiveData(type = "2D", nx = 4, nn = nx * 15, ne = nx * 15, rad = 1:100,
-	ns = 1:3, ew = 1:3, nc = brewer.pal(5, "Set1"),
+	ns = c(0.5, 1.0, 1.5), ew = 1:3, nc = brewer.pal(5, "Set1"),
 	ec = brewer.pal(5, "Set1"), axis.cols = brewer.pal(nx, "Set1"),
-	desc = NULL, center.hole = 0.1, verbose = FALSE)
+	desc = NULL, allow.same = FALSE, verbose = FALSE)
 }
 \arguments{
   \item{type}{
@@ -46,22 +46,25 @@ A vector of valid color names to be used to color the axes; \code{length(axis.co
   \item{desc}{
 Character; a description of the data set.
 }
-  \item{center.hole}{
-Numeric; used by \code{\link{centerHole}} to create the hole or gap near the origin of the hive plot.  \code{0 < center.hole <= 1}.  This is not checked and values outside this range may cause an error.
+  \item{allow.same}{
+Logical; indicates if edges may begin and end on the same axis. Only applies to \code{type = 2D}.
 }
+
   \item{verbose}{
 Logical; If \code{TRUE}, the generation, processing and final result is reported to the console.
 }
 }
 \details{
 For \code{type = "2D"}, after the function creates an initial set of random nodes, these are randomly chosen and connected between adjacent axes, so that no edge crosses an axis.
- 
+\cr
+\cr
 For \code{type = "3D"}, after the function creates an initial set of random nodes and edges, these are cleaned up by removing the following cases (which the rest of \code{HiveR} is not intended to handle at this time): duplicated nodes, nodes that are not part of any edge, edges that begin and end on the same point, edges that begin and end on the same axis, and finally, for \code{nx = 5 or 6}, edges that begin and end on colinear axes.  Most of these don't cause an error, but produce some ugly results.
-
+\cr
+\cr
 For the arguments \code{rad, ns, ew, nc} and \code{ec}, the values given are sampled randomly (with replacement) and assigned to particular nodes or edges.
 }
 \section{warning}{
-If you create a very small data set with few nodes, there may be no nodes assigned to some axes which will give an error when you try to plot the data.  It's up to the user to check for this possibility.
+If you create a very small data set with few nodes, there may be no nodes assigned to some axes which will give an error when you try to plot the data.  It's up to the user to check for this possibility (you can use \code{sumHPD}).
 }
 \value{
 An object of S3 class \code{\link{HivePlotData}}.
@@ -76,5 +79,6 @@ Bryan A. Hanson, DePauw University. \email{hanson@depauw.edu}
 \examples{
 test4 <- ranHiveData(nx = 4)
 str(test4)
+sumHPD(test4)
 }
 \keyword{ datagen }

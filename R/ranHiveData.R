@@ -2,12 +2,11 @@
 
 ranHiveData <- function(type = "2D", nx = 4,
 	nn = nx*15, ne = nx*15,
-	rad = 1:100, ns = 1:3, ew = 1:3,
+	rad = 1:100, ns = c(0.5, 1.0, 1.5), ew = 1:3,
 	nc = brewer.pal(5, "Set1"),
 	ec = brewer.pal(5, "Set1"),
 	axis.cols = brewer.pal(nx, "Set1"),
-	desc = NULL,
-	center.hole = 0.1,
+	desc = NULL, allow.same = FALSE,
 	verbose = FALSE) {
 	
 # Function to generate random data for testing/demonstrating HiveR
@@ -80,7 +79,7 @@ if  ((nx == 2) | (nx == 3)) {  ###### 2D edges for nx = 2 or 3
 	
 	# Clean up edf
 	
-		# remove edges that start & end on the same point
+	# remove edges that start & end on the same point
 		
 		same.pt <- which(edf$id1 == edf$id2)
 		if (length(!same.pt == 0)) {
@@ -89,6 +88,8 @@ if  ((nx == 2) | (nx == 3)) {  ###### 2D edges for nx = 2 or 3
 			}
 		
 	# remove edges that start & end on the same axis
+	
+	if (!allow.same) {
 		
 		same.axis <- c()
 		
@@ -114,6 +115,8 @@ if  ((nx == 2) | (nx == 3)) {  ###### 2D edges for nx = 2 or 3
 			if (verbose) cat("Removing an edge (same.axis) = ", same.axis, "\n\n")
 			}
 
+		}
+		
 	} ###### End of 2D edges for nx = 2 or 3
 
 if ((type == "3D") & (nx > 3)) {  ###### 3D edge generation and checking for nx > 3
@@ -137,7 +140,7 @@ if ((type == "3D") & (nx > 3)) {  ###### 3D edge generation and checking for nx 
 			}
 		
 		# remove edges that start & end on the same axis
-		
+			
 		same.axis <- c()
 		
 		if (nx >= 2) { # going to use these values later too when checking colinearity
@@ -221,21 +224,17 @@ if ((type == "2D") & (nx > 3)) { ###### 2D edge generation and checking
 	# In this case, edges must be 1->2, 2->3... 5->6 but not 3->5
 	# i.e. no crossings. Thus they are pretty much done manually 
 	
-	# Select from possibilites pairwise, roughly equal no per axis pair
+	# Select from possibilites pairwise, roughly equal no. per axis pair
 	
-		ne <- round(ne/nx) # divide edges among pairs of axes
-
-		if (nx >= 2) {
-			one <- which(ndf$axis == 1) # row indices
-			one <- ndf$id[one] # id values
-			two <- which(ndf$axis == 2) # row indices
-			two <- ndf$id[two] # id values
-			}
-			
-		if (nx >= 3) {
-			three <- which(ndf$axis == 3) # row indices
-			three <- ndf$id[three] # id values
-			}
+		ne <- round(ne/nx) # divide edges among axes
+		if (allow.same) ne <- ne/nx # acct for edges st/end on same axis
+		
+		one <- which(ndf$axis == 1) # row indices
+		one <- ndf$id[one] # id values
+		two <- which(ndf$axis == 2) # row indices
+		two <- ndf$id[two] # id values
+		three <- which(ndf$axis == 3) # row indices
+		three <- ndf$id[three] # id values
 			
 		if (nx >= 4) {
 			four <- which(ndf$axis == 4) # row indices
@@ -263,6 +262,18 @@ if ((type == "2D") & (nx > 3)) { ###### 2D edge generation and checking
 		id2 <- c(id2, sample(four, ne, replace = TRUE))
 		id1 <- c(id1, sample(four, ne, replace = TRUE))
 		id2 <- c(id2, sample(one, ne, replace = TRUE))
+		
+		if (allow.same) {
+			id1 <- c(id1, sample(one, ne, replace = TRUE))
+			id2 <- c(id2, sample(one, ne, replace = TRUE))
+			id1 <- c(id1, sample(two, ne, replace = TRUE))
+			id2 <- c(id2, sample(two, ne, replace = TRUE))
+			id1 <- c(id1, sample(three, ne, replace = TRUE))
+			id2 <- c(id2, sample(three, ne, replace = TRUE))
+			id1 <- c(id1, sample(four, ne, replace = TRUE))
+			id2 <- c(id2, sample(four, ne, replace = TRUE))
+			}
+
 		}			
 
 	if (nx == 5)  {
@@ -276,6 +287,20 @@ if ((type == "2D") & (nx > 3)) { ###### 2D edge generation and checking
 		id2 <- c(id2, sample(five, ne, replace = TRUE))
 		id1 <- c(id1, sample(five, ne, replace = TRUE))
 		id2 <- c(id2, sample(one, ne, replace = TRUE))
+
+		if (allow.same) {
+			id1 <- c(id1, sample(one, ne, replace = TRUE))
+			id2 <- c(id2, sample(one, ne, replace = TRUE))
+			id1 <- c(id1, sample(two, ne, replace = TRUE))
+			id2 <- c(id2, sample(two, ne, replace = TRUE))
+			id1 <- c(id1, sample(three, ne, replace = TRUE))
+			id2 <- c(id2, sample(three, ne, replace = TRUE))
+			id1 <- c(id1, sample(four, ne, replace = TRUE))
+			id2 <- c(id2, sample(four, ne, replace = TRUE))
+			id1 <- c(id1, sample(five, ne, replace = TRUE))
+			id2 <- c(id2, sample(five, ne, replace = TRUE))
+			}
+
 		}			
 
 	if (nx == 6)  {
@@ -291,14 +316,39 @@ if ((type == "2D") & (nx > 3)) { ###### 2D edge generation and checking
 		id2 <- c(id2, sample(six, ne, replace = TRUE))
 		id1 <- c(id1, sample(six, ne, replace = TRUE))
 		id2 <- c(id2, sample(one, ne, replace = TRUE))
+
+		if (allow.same) {
+			id1 <- c(id1, sample(one, ne, replace = TRUE))
+			id2 <- c(id2, sample(one, ne, replace = TRUE))
+			id1 <- c(id1, sample(two, ne, replace = TRUE))
+			id2 <- c(id2, sample(two, ne, replace = TRUE))
+			id1 <- c(id1, sample(three, ne, replace = TRUE))
+			id2 <- c(id2, sample(three, ne, replace = TRUE))
+			id1 <- c(id1, sample(four, ne, replace = TRUE))
+			id2 <- c(id2, sample(four, ne, replace = TRUE))
+			id1 <- c(id1, sample(five, ne, replace = TRUE))
+			id2 <- c(id2, sample(five, ne, replace = TRUE))
+			id1 <- c(id1, sample(six, ne, replace = TRUE))
+			id2 <- c(id2, sample(six, ne, replace = TRUE))
+			}
+
 		}			
 
-		edf <- data.frame( # no need to clean
+		edf <- data.frame( # clean momentaril
 			id1 = id1,
 			id2 = id2,
 			weight = sample(ew, ne, replace = TRUE),
 			color = as.character(sample(ec, ne, replace = TRUE)))
 		edf$color <- as.character(edf$color)
+
+	# Remove edges that start & end on the same point
+	# (allow.same may have introduced some new cases)
+		
+		same.pt <- which(edf$id1 == edf$id2)
+		if (length(!same.pt == 0)) {
+			edf <-edf[-same.pt,]
+			if (verbose) cat("Removing an edge (same.pt) = ", same.pt, "\n\n")
+			}
 	
 	} ##### end of 2D edge generation and checking
 
@@ -334,8 +384,7 @@ if ((type == "2D") & (nx > 3)) { ###### 2D edge generation and checking
 		edges = edf,
 		type = type, 
 		desc = desc,
-		axis.cols = axis.cols,
-		center.hole = center.hole)
+		axis.cols = axis.cols)
 	class(res) <- "HivePlotData"
 	chkHPD(res)
 	
