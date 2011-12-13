@@ -20,7 +20,11 @@ A character string giving the option desired.  See Details for current options.
 \details{
 \code{option = "rad <- tot.edge.count"}  This option looks through the \code{HivePlotData} object and determines how many edges start or end on each node (the "degree").  This value is then assigned to the radius for that node.
 \cr
+\cr
 \code{option = "axis <- source.man.sink"}  This option examines the nodes and corresponding edges in a \code{HivePlotData} object to determine if the node is a source, manager or sink.  A source node only has outgoing edges.  A sink node only has incoming edges.  A manager has both.  Hence, this option treats the \code{HivePlotData} object as if it were directed in that the first node of an edge in will be in \code{HPD$nodes$id1} and the second node of an edge will be in \code{HPD$nodes$id2}.  As a result, this option produces a hive plot with 3 axes.  This concept is similar to the idea of \code{\link[FuncMap]{FuncMap}} but the internals are quite different.  See also \code{\link{dot2HPD}} for some details about processing .dot files in an agnostic fashion.
+\cr
+\cr
+\code{option = "remove orphans"} removes nodes that have degree zero (no incoming or outgoing edges).
 }
 \value{
 A modified \code{HivePlotData} object.

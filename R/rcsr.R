@@ -53,13 +53,13 @@ rcsr <- function(p0, cp, p1) {
 
 # Compute spline curve
 	n3 <- n3[-1,] # remove origin point
-	sp <- xspline(n3[,1], n3[,2], draw = FALSE, shape = -1)
-	sp2 <- matrix(c(sp$x, sp$y, rep(0, length(sp$x))), ncol = 3) # add back the z coord (all 0's)
+	sp <- spline(n3[,1], n3[,2], n = 25)
+	sp <- matrix(c(sp$x, sp$y, rep(0, length(sp$x))), ncol = 3) # add back the z coord (all 0's)
 
 # Now reverse the transformations back to the original 3d space
 
-	sp3 <- t(t(yA) %*% t(sp2))
-	sp4 <- t(t(xA) %*% t(sp3))
-	sp5 <- t(t(zA) %*% t(sp4))
-	sp5
+	sp <- t(t(yA) %*% t(sp))
+	sp <- t(t(xA) %*% t(sp))
+	sp <- t(t(zA) %*% t(sp))
+	sp
 	}

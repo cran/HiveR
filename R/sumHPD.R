@@ -1,5 +1,7 @@
 sumHPD <-
-function(HPD, plot.list = FALSE, tex = FALSE){
+function(HPD, chk.all = FALSE, chk.sm.pt = FALSE, chk.ax.jump = FALSE,
+	chk.sm.ax = FALSE, chk.orphan.node = FALSE,
+	plot.list = FALSE, tex = FALSE, orphan.list = FALSE){
 	
 # Function to summarize objects of S3 class 'HivePlotData'
 # Part of HiveR package
@@ -8,14 +10,29 @@ function(HPD, plot.list = FALSE, tex = FALSE){
 
 	chkHPD(HPD) # verify it's legit
 	
-	cat("\n\t", HPD$desc, "\n")
+	# Overall summary
+	
+	cat("\t", HPD$desc, "\n")
 	cat("\tThis hive plot data set contains ",
 		length(HPD$nodes$id), " nodes on ",
 		length(unique(HPD$nodes$axis)), " axes and ",
 		length(HPD$edges$id1), " edges.\n", sep = "")
 	cat("\tIt is a  ", HPD$type, " data set.\n\n", sep = "")
 
-	if (plot.list) {
+	# Now summarize the axes and nodes
+
+	nodes <- HPD$nodes
+	for (n in 1:length(unique(nodes$axis))) {
+		g <- subset(nodes, axis == n)
+		cat("\t\tAxis", n, "has", length(g$id), "nodes spanning radii from",
+		min(g$radius), "to", max(g$radius), "\n", sep = " ")		
+		}	
+
+	# Perform the requested checks etc
+	
+	if (chk.all) chk.sm.pt <- chk.ax.jump <- chk.sm.ax <- chk.orphan.node <- TRUE
+
+	if (any(plot.list, chk.sm.pt, chk.ax.jump, chk.sm.ax, chk.orphan.node)) {
 		# Create a list of edges to be drawn in a helpful format
 		n1.lab <- n1.rad <- n2.lab <- n2.rad <- n1.ax <- n2.ax <- c()
 		for (n in 1:(length(HPD$edges$id1))) {
@@ -45,10 +62,68 @@ function(HPD, plot.list = FALSE, tex = FALSE){
 			e.wt = HPD$edges$weight,
 			e.col = HPD$edges$color)		
 		}
-	if (tex) {
+
+	
+	if (chk.sm.pt) {
+		prob <- which((fd$n1.rad == fd$n2.rad) & (fd$n1.ax == fd$n2.ax))
+		if (length(prob) == 0) cat("\n\t No edges were found that start and end on the same point\n")
+		if (length(prob) > 0) {
+			cat("\n\tThe following edges start and end at the same point and the\n\tcorresponding nodes should be deleted, offset or\n\tjittered (or the edge deleted) before plotting:\n\n")
+			print(fd[prob,], row.names = FALSE)
+			}
+		}
+
+	if (chk.sm.ax) {
+		prob <- which(fd$n1.ax == fd$n2.ax)
+		if (length(prob) == 0) cat("\n\t No edges were found that start and end on the same axis\n")
+		if (length(prob) > 0) {
+			cat("\n\tThe following edges start and end on the same axis:\n\n")
+			print(fd[prob,], row.names = FALSE)
+			}
+		}
+
+	if (chk.orphan.node) {
+		e.ids <- union(HPD$edges$id1, HPD$edges$id2)
+		n.ids <- HPD$nodes$id
+		prob <- setdiff(n.ids, e.ids)
+		prob <- match(prob, HPD$nodes$id)
+		if (length(prob) == 0) cat("\n\t No orphaned nodes were found\n")
+		if (length(prob) > 0) {
+			cat("\n\tThe following", length(prob), "nodes are orphaned (degree = 0):\n\n")
+			print(HPD$nodes[prob,], row.names = FALSE)
+			orphans <- HPD$nodes[prob,]
+			}
+		}
+
+	if (chk.ax.jump) {
+		prob <- which(
+			((fd$n1.ax == 1) & (fd$n2.ax == 3)) &
+			((fd$n1.ax == 2) & (fd$n2.ax == 4)) &
+			((fd$n1.ax == 3) & (fd$n2.ax == 5)) &
+			((fd$n1.ax == 4) & (fd$n2.ax == 6)) &
+			((fd$n1.ax == 5) & (fd$n2.ax == 1)) &
+			((fd$n1.ax == 6) & (fd$n2.ax == 2)) &
+			#
+			((fd$n1.ax == 6) & (fd$n2.ax == 4)) &
+			((fd$n1.ax == 5) & (fd$n2.ax == 3)) &
+			((fd$n1.ax == 4) & (fd$n2.ax == 2)) &
+			((fd$n1.ax == 3) & (fd$n2.ax == 1)) &
+			((fd$n1.ax == 2) & (fd$n2.ax == 6)) &
+			((fd$n1.ax == 1) & (fd$n2.ax == 5)))
+			
+		if (length(prob) == 0) cat("\n\t No edges that jump axes were found\n")
+		if (length(prob) > 0) {
+			cat("\n\tThe following edges jump over an axis (and won't be drawn):\n\n")
+			print(fd[prob,], row.names = FALSE)
+			}
+		}
+		
+	if ((tex) & (plot.list)) {
 		fd <- xtable(fd, hline.after = c(1), include.rownames = FALSE)
 		align(fd) <- "|r|rrlr|rrlr|rl|"
 		}	
-	if (plot.list) return(fd)
+
+	if (plot.list) return(fd) # user must not ask for both at the same time!
+	if (orphan.list) return(orphans)
 	}
 

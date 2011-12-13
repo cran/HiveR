@@ -29,7 +29,6 @@ List of 7 \cr
   ..$ color : chr [1:43] "white" "white" "white" "white" ... \cr
  $ type       : chr "2D" \cr
  $ desc       : chr "Modified Arroyoland Data Set" \cr
- $ center.hole: num 0.1 \cr
  $ axis.cols  : chr [1:2] "gray" "gray" \cr
  - attr(*, "class")= chr "HivePlotData" \cr
 }

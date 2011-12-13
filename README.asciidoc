@@ -1,0 +1,27 @@
+How to install HiveR
+===================
+
+To install from Github using R:
+------------------------------
+install.packages("devtools")
+
+library("devtools")
+
+install_github(repo = "HiveR", username = "bryanhanson", branch = "master")
+
+library("HiveR")
+
+vignette("HiveR") # To see the user guide
+
+If you use branch = "devel" you can get the development branch if it is available.  My habit is to keep these operational but not necessarily complete.  Devel versions would be ahead of what's on CRAN.
+
+From CRAN using R:
+------------------
+install.packages("HiveR")
+
+library("HiveR")
+
+vignette("HiveR") # to see the user guide
+
+
+Questions?  hanson@depauw.edu

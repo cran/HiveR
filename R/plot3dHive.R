@@ -1,15 +1,17 @@
 
 
-plot3dHive <- function(HPD, dr.nodes = TRUE,
-	method = "abs", ...) {
+plot3dHive <- function(HPD, ch = 1, dr.nodes = TRUE,
+	method = "abs", axLabs = NULL, axLab.pos = NULL,
+	LA = FALSE, ...) {
 	
 	# Function to plot 3D hive plots
 	# inspired by the work of Martin Kryzwinski
 	# Bryan Hanson, DePauw Univ, Feb 2011 onward
 	
-	# Spherical coordinates will be used, even for the trivial cases
+	# Spherical coordinates will be used
 
 	chkHPD(HPD)
+	
 	nx <- length(unique(HPD$nodes$axis))
 	if (nx == 1) stop("Something is wrong: only one axis seems to be present")
 	if ((nx == 2) | (nx == 3)) stop("Use plotHive for hive plots with 2 or 3 axes")
@@ -17,32 +19,18 @@ plot3dHive <- function(HPD, dr.nodes = TRUE,
 	
 	# Send out for ranking/norming if requested
 	
-	if ((method == "rank") | (method == "norm")) HPD <- manipAxis(HPD, method)
+	if (!method == "abs") HPD <- manipAxis(HPD, method)
 
 	nodes <- HPD$nodes
 	edges <- HPD$edges
 	axis.cols <- HPD$axis.cols
 
-	# Get dimension for center hole
-	
-	if (method == "abs") m <- centerHole(HPD)
-	if (method == "norm") m <- HPD$center.hole
-	if (method == "rank") {m <- centerHole(HPD); m <- floor(m)}
-	nodes$radius <- nodes$radius + m
+	nodes$radius <- nodes$radius + ch
 	HPD$nodes$radius <- nodes$radius # important, as HPD is passed
 	# to drawHiveSpline so it must be updated here
-	
-	# Set up a scaling factor for the nodes
-	# Also a few other things set up here:
-	# nsf = node scaling factor
-	# cs = center sphere size (nx > 3)
 
 	bg3d("black") # black background to rgl graphics
-	if (method == "norm") {nsf <- 0.01; cs <- m}
-	if (method == "abs") {nsf <- 1.0; cs <- m}
-	if (method == "rank") {nsf <- 0.1; cs <- 1}		
 
-	
 ##### Four dimensional case (nx = 4, 5, 6 with rgl graphics)
 
 	# Draw axes first
@@ -86,16 +74,30 @@ plot3dHive <- function(HPD, dr.nodes = TRUE,
 			rep(-135, length(n4$radius)))
 		n.df <- data.frame(radius = r, theta = theta, phi = phi)
 		n.coord <- sph2cart(n.df)
-		spheres3d(n.coord$x, n.coord$y, n.coord$z, col = nodes$color, radius = nodes$size*nsf)
+		spheres3d(n.coord$x, n.coord$y, n.coord$z, col = nodes$color, radius = nodes$size)
 		}
 		
 	# now draw edges
 		
-		tmp <- drawHiveSpline(HPD, ...)
+		tmp <- drawHiveSpline(HPD, LA = LA, ...)
 	
 	# add a center sphere
 	
-		spheres3d(0, 0, 0, col = "gray", radius = cs)
+		spheres3d(0, 0, 0, col = "gray", radius = ch)
+
+	# add axis labels if requested
+	
+	if (!is.null(axLabs)) {
+		if (!length(axLabs) == nx) stop("Incorrect number of axis labels")
+		r <- c(max1, max2, max3, max4)
+		if (is.null(axLab.pos)) axLab.pos <- r*0.1
+		r <- r + axLab.pos
+		phi <- c(54.7, 125.3, 125.3, 54.7)
+		theta <- c(45, -45, 135, -135)
+		t.df <- data.frame(radius = r, theta = theta, phi = phi)
+		t.coord <- sph2cart(t.df)
+		text3d(t.coord, texts = axLabs, adj = c(0.5, 0.5), col = "white")
+		}
 		
 		} # end of 4D
 			
@@ -149,16 +151,30 @@ plot3dHive <- function(HPD, dr.nodes = TRUE,
 			rep(0, length(n5$radius)))
 		n.df <- data.frame(radius = r, theta = theta, phi = phi)
 		n.coord <- sph2cart(n.df)
-		spheres3d(n.coord$x, n.coord$y, n.coord$z, col = nodes$color, radius = nodes$size*nsf)
+		spheres3d(n.coord$x, n.coord$y, n.coord$z, col = nodes$color, radius = nodes$size)
 		}
 		
 	# now draw edges
 		
-		tmp <- drawHiveSpline(HPD, ...)
+		tmp <- drawHiveSpline(HPD, LA = LA, ...)
 
 	# add a center sphere
 	
-		spheres3d(0, 0, 0, col = "gray", radius = cs)
+		spheres3d(0, 0, 0, col = "gray", radius = ch)
+
+	# add axis labels if requested
+	
+	if (!is.null(axLabs)) {
+		if (!length(axLabs) == nx) stop("Incorrect number of axis labels")
+		r <- c(max1, max2, max3, max4, max5)
+		if (is.null(axLab.pos)) axLab.pos <- r*0.1
+		r <- r + axLab.pos
+		phi <- c(90, 90, 90, 0, 180)
+		theta <- c(0, 120, 240, 0, 0)
+		t.df <- data.frame(radius = r, theta = theta, phi = phi)
+		t.coord <- sph2cart(t.df)
+		text3d(t.coord, texts = axLabs, adj = c(0.5, 0.5), col = "white")
+		}
 
 		} # end of 5D
 	
@@ -218,16 +234,30 @@ plot3dHive <- function(HPD, dr.nodes = TRUE,
 			rep(0, length(n6$radius)))
 		n.df <- data.frame(radius = r, theta = theta, phi = phi)
 		n.coord <- sph2cart(n.df)
-		spheres3d(n.coord$x, n.coord$y, n.coord$z, col = nodes$color, radius = nodes$size*nsf)
+		spheres3d(n.coord$x, n.coord$y, n.coord$z, col = nodes$color, radius = nodes$size)
 		}
 		
 	# now draw edges
 		
-		tmp <- drawHiveSpline(HPD, ...)	
+		tmp <- drawHiveSpline(HPD, LA = LA, ...)	
 
 	# add a center sphere
 	
-		spheres3d(0, 0, 0, col = "gray", radius = cs)
+		spheres3d(0, 0, 0, col = "gray", radius = ch)
+
+	# add axis labels if requested
+	
+	if (!is.null(axLabs)) {
+		if (!length(axLabs) == nx) stop("Incorrect number of axis labels")
+		r <- c(max1, max2, max3, max4, max5, max6)
+		if (is.null(axLab.pos)) axLab.pos <- r*0.1
+		r <- r + axLab.pos
+		phi <- c(90, 90, 90, 90, 0, 180)
+		theta <- c(0, 90, 180, 270, 0, 0)
+		t.df <- data.frame(radius = r, theta = theta, phi = phi)
+		t.coord <- sph2cart(t.df)
+		text3d(t.coord, texts = axLabs, adj = c(0.5, 0.5), col = "white")
+		}
 		
 		} # end of 6D
 	

@@ -95,6 +95,23 @@ mineHPD <- function(HPD, option = "rad <- tot.edge.count") {
 
 ### ++++++++++++++++++++++++++++++++++++++++++++++++++++ ###
 
+	if (option == "remove orphans") {
+
+# This option removes orphaned nodes (which have no edges)
+# Almost the same code as over in sumHPD
+
+		e.ids <- union(HPD$edges$id1, HPD$edges$id2)
+		n.ids <- HPD$nodes$id
+		prob <- setdiff(n.ids, e.ids)
+		prob <- match(prob, HPD$nodes$id)
+		if (length(prob) == 0) cat("\n\t No orphaned nodes were found\n")
+		if (length(prob) > 0) {
+			cat("\n\tThe following", length(prob), "nodes are orphaned (degree = 0):\n\n")
+			nodes <- nodes[-prob,]
+			}
+		
+		}  ##### end of option == "remove orphans"
+
 
 ### ++++++++++++++++++++++++++++++++++++++++++++++++++++ ###
 
