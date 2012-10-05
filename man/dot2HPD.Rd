@@ -15,10 +15,10 @@ dot2HPD(file = NULL, node.inst = NULL, edge.inst = NULL, axis.cols = NULL,
 The path to the .dot file to be processed.
 }
   \item{node.inst}{
-The path to a .csv file containing instructions about how to map node tags in the .dot file to parameters in the \code{HivePlotData} object.
+The path to a .csv file containing instructions about how to map node tags in the .dot file to parameters in the \code{HivePlotData} object. May be NULL.
 }
   \item{edge.inst}{
-The path to a .csv file containing instructions about how to map edge tags in the .dot file to parameters in the \code{HivePlotData} object.
+The path to a .csv file containing instructions about how to map edge tags in the .dot file to parameters in the \code{HivePlotData} object.  May be NULL>
 }
   \item{axis.cols}{
 A character vector giving the colors desired for the axes.

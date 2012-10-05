@@ -9,17 +9,21 @@ dot2HPD <- function (file = NULL, node.inst = NULL, edge.inst = NULL,
 # Gradually building in compliance with DOT stds...
 
 # Assumptions/Caveats:
-	# Let's assume that all (useful) lines end in ; even though it's not req'd
 	# No distinction between undirected and directed graphs
 	# Not sure how A -- B -- C would be handled
 	
 # No checking for whether the type (2D/3D) is actually true
 
     lines <- readLines(file, ...)
- 	lines <- lines[grep(";", lines)] # cleans off 1st and last lines
- 	lines <- gsub("^[[:space:]]|[[:space:]]$", "", lines) # clean off leading spaces + trailing spaces
+
+# Clean off 1st and last lines which contain { and }
+# And clean out leading and trailing spaces
+
+ 	lines <- lines[-grep("\\{", lines)] # cleans off 1st line
+ 	lines <- lines[-grep("\\}", lines)] # cleans off last line
+ 	lines <- gsub("^[[:space:]]|[[:space:]]$", "", lines) # leading spaces + trailing spaces
 	lines <- sub(";", "", lines)
-	
+
 # The following will find edges and their attributes
 
     ed <- lines[grep("--|->", lines)]
@@ -42,6 +46,9 @@ dot2HPD <- function (file = NULL, node.inst = NULL, edge.inst = NULL,
 
 # Process node attributes
 # Not sure how this will handle multiple tag=value sets
+	
+
+	if (!is.null(node.inst)) {
 
 	at <- sub("^.*\\[", "", no)
 	at <- sub("\\]$", "", at)
@@ -55,29 +62,33 @@ dot2HPD <- function (file = NULL, node.inst = NULL, edge.inst = NULL,
 
 	ni <- read.csv(node.inst) # read in translation instructions
 
-	for (n in 1:length(no)) { # match up instructions
-		for (i in 1:nrow(ni)) {
-			if ((dot.tag[n] == ni$dot.tag[i]) & (dot.val[n] == ni$dot.val[i])) {
-				# only certain hive.tag values are valid & will be processed
-				# other values are silently ignored
-				# more options readily added
-				
-				if (ni$hive.tag[i] == "axis") {
-					HPD$nodes$axis[n] <- as.numeric(as.character(ni$hive.val[i]))
-					}
-				if (ni$hive.tag[i] == "radius") {
-					HPD$nodes$radius[n] <- as.numeric(as.character(ni$hive.val[i]))
-					}
-				if (ni$hive.tag[i] == "size") {
-					HPD$nodes$size[n] <- as.numeric(as.character(ni$hive.val[i]))
-					}
-				if (ni$hive.tag[i] == "color") {
-					HPD$nodes$color[n] <- as.character(ni$hive.val[i])
+		for (n in 1:length(at)) { # match up instructions
+			for (i in 1:nrow(ni)) {
+				# print(dot.tag[n])
+				# print(dot.val[n])
+				# cat("Node no. = ", n, "Node inst no = ", i, "\n")
+				if ((dot.tag[n] == ni$dot.tag[i]) & (dot.val[n] == ni$dot.val[i])) {
+					# only certain hive.tag values are valid & will be processed
+					# other values are silently ignored
+					# more options readily added
+					
+					if (ni$hive.tag[i] == "axis") {
+						HPD$nodes$axis[n] <- as.numeric(as.character(ni$hive.val[i]))
+						}
+					if (ni$hive.tag[i] == "radius") {
+						HPD$nodes$radius[n] <- as.numeric(as.character(ni$hive.val[i]))
+						}
+					if (ni$hive.tag[i] == "size") {
+						HPD$nodes$size[n] <- as.numeric(as.character(ni$hive.val[i]))
+						}
+					if (ni$hive.tag[i] == "color") {
+						HPD$nodes$color[n] <- as.character(ni$hive.val[i])
+						}
 					}
 				}
 			}
-		}
  
+	}
 
 # Set up HPD$edges
 	

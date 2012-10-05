@@ -74,7 +74,8 @@ plot3dHive <- function(HPD, ch = 1, dr.nodes = TRUE,
 			rep(-135, length(n4$radius)))
 		n.df <- data.frame(radius = r, theta = theta, phi = phi)
 		n.coord <- sph2cart(n.df)
-		spheres3d(n.coord$x, n.coord$y, n.coord$z, col = nodes$color, radius = nodes$size)
+		spheres3d(n.coord$x, n.coord$y, n.coord$z, col = c(n1$color, n2$color, n3$color, n4$color),
+		radius = c(n1$size, n2$size, n3$size, n4$size))
 		}
 		
 	# now draw edges
@@ -151,7 +152,8 @@ plot3dHive <- function(HPD, ch = 1, dr.nodes = TRUE,
 			rep(0, length(n5$radius)))
 		n.df <- data.frame(radius = r, theta = theta, phi = phi)
 		n.coord <- sph2cart(n.df)
-		spheres3d(n.coord$x, n.coord$y, n.coord$z, col = nodes$color, radius = nodes$size)
+		spheres3d(n.coord$x, n.coord$y, n.coord$z, col = c(n1$color, n2$color, n3$color, n4$color, n5$color),
+		radius = c(n1$size, n2$size, n3$size, n4$size, n5$size))
 		}
 		
 	# now draw edges
@@ -234,7 +236,8 @@ plot3dHive <- function(HPD, ch = 1, dr.nodes = TRUE,
 			rep(0, length(n6$radius)))
 		n.df <- data.frame(radius = r, theta = theta, phi = phi)
 		n.coord <- sph2cart(n.df)
-		spheres3d(n.coord$x, n.coord$y, n.coord$z, col = nodes$color, radius = nodes$size)
+		spheres3d(n.coord$x, n.coord$y, n.coord$z, col = c(n1$color, n2$color, n3$color, n4$color, n5$color, n6$color),
+		radius = c(n1$size, n2$size, n3$size, n4$size, n5$size, n6$size))
 		}
 		
 	# now draw edges
