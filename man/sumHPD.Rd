@@ -4,7 +4,7 @@
 Summarize a hive plot data object and optionally run some checks
 }
 \description{
-This function summarizes a \code{\link{HivePlotData}} object in a convenient form. Optionally, it can run some checks for certain conditions that may be of interest.  It can also output a data frame of edges to be drawn, either as a data frame or in a LaTeX ready form, or a data frame of orphaned nodes.
+This function summarizes a \code{\link{HivePlotData}} object in a convenient form. Optionally, it can run some checks for certain conditions that may be of interest.  It can also output a summary of edges to be drawn, either as a data frame or in a LaTeX ready form, or a data frame of orphaned nodes.
 }
 \usage{
 sumHPD(HPD, chk.all = FALSE, chk.sm.pt = FALSE, chk.ax.jump = FALSE,
@@ -21,7 +21,7 @@ Logical; should all the checks below be run?  See Details.
 Logical; should the edges be checked to see if any of them start and end on the same axis with the same radius?  See Details.
 }
   \item{chk.ax.jump}{
-Logical; should the edges be checked to see if any of them start and end on the same axis with the same radius?  See Details.
+Logical; should the edges be checked to see if any of them start and end on non-adjacent axes, e.g. axis 1 --> axis 3?  See Details.
 }
   \item{chk.sm.ax}{
 Logical; should the edges be checked to see if any of them start and end on the same axis?
@@ -45,7 +45,7 @@ Logical; should a data frame of orphaned nodes be returned?
 Argument \code{chk.sm.pt} applies only to hive plots of \code{type = 2D} and only when edges exist that start and end on the same axis.  It checks to see if any of the edges start and end at the same radius on the same axis, which causes an error in \code{plotHive} since you are trying to draw an edge of length zero (the actual error message is \code{Error in calcCurveGrob(x, x$debug) : End points must not be identical}.  Some data sets may have such cases intrinsically or due to data entry error, or the condition may arise during processing.  Either way, one needs to be able to detect such cases for removal or modification. This argument will tell you which nodes cause the problem.
 \cr
 \cr
-Argument \code{chk.ax.jump} applies only to hive plots of \code{type = 2D}.  It checks to see if any of the edges jump an axis. This argument will tell you which nodes are at either end of the jumping edge.  This should should be avoided in hive plots as it makes the plot aesthetically unpleasing.  However, depending upon how you process the data, this condition may arise and hence it is useful to be able to locate jumps.
+Argument \code{chk.ax.jump} applies only to hive plots of \code{type = 2D}.  It checks to see if any of the edges jump an axis, e.g. axis 1 --> axis 3. This argument will tell you which nodes are at either end of the jumping edge.  Jumping should should be avoided in hive plots as it makes the plot aesthetically unpleasing.  However, depending upon how you process the data, this condition may arise and hence it is useful to be able to locate jumps.
 }
 
 \value{

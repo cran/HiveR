@@ -155,4 +155,4 @@ lines3d(x = n2[,1], y = n2[,2], z = n2[,3],
 }
 }
 \keyword{ utilities }
-\keyword{ dplot }
+\keyword{ 3D spline }

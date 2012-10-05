@@ -91,4 +91,4 @@ for (n in seq(1, length(hive3$edges$id1), by = 2)) {
 
 plotHive(hive3)
 }
-\keyword{ utility }
+\keyword{ utilities }

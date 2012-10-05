@@ -25,6 +25,12 @@ A character string giving the option desired.  See Details for current options.
 \cr
 \cr
 \code{option = "remove orphans"} removes nodes that have degree zero (no incoming or outgoing edges).
+\cr
+\cr
+\code{option = "remove zero edge"} removes edges with length zero, which includes edges that start and end at the same node (as in \code{option = "remove self edge"}) as well as edges that are zero length because the axis and radius of the start and end nodes just happen to be the same.  The node coordinates are the criteria: if an edge starts on a given axis at a given radius and ends at the same point, it is removed.
+\cr
+\cr
+\code{option = "remove self edge"} removes edges that start and end on the same node.  This differs from \code{option = "remove zero edge"} in that it is the node labels that are compared rather than the node coordinates.
 }
 \value{
 A modified \code{HivePlotData} object.

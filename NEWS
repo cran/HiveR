@@ -10,6 +10,45 @@ doi: 10.1093/bib/bbr069
 
 Bryan A. Hanson DePauw University, Greencastle Indiana USA
 
+###### Version: 0.2-7
+Date: 5 Oct 2012
+News:
+>> Cleaned up a few non-code issues to pass CRAN checks. 
+
+###### Version: 0.2-6
+Date: 3 Oct 2012
+News:
+>> Fixed a problem with edge sizes and weights not being handled correctly for some cases with plotHive (so 2D hives only). 
+
+###### Version: 0.2-5
+Date: 16 Sept 2012
+News:
+>> Fixed a problem in which 2D hive node sizes and colors were not being drawn correctly.  Reported by Augustin Arce along with a suggested fix.  Thanks Augustin!  The same problem was in the 3D version and was also corrected.  The edge colors and weights do not appear to have the problem; they are assembled from scratch.
+
+###### Version: 0.2-4
+Date: 25 June 2012
+News:
+>> Improved vignette, now built using knitr outside of the build/check process
+>> Added additional files for the E coli data set.  See inst/extdata/E_coli/README for details.
+>> Revised animateHive to permit different hives to be animated using different sets of arguments.  Gives maximum flexibility.  See the help page for a silly example.
+
+###### Version: 0.2-3
+Date: 11 June 2012
+News:
+>> Improved the Dot parsing in dot2HPD.  Among others, node.inst or edge.inst may be NULL (if both are NULL, you aren't doing much, this is untested).
+>> Added options to mineHPD.
+>> Possible problem with prune being ignored (still out there!).
+
+###### Version: 0.2-2
+Date: 7 June 2012
+News:
+>> Possible problem with prune being ignored.
+>> Added function animateHive to do rotation and scaling of type = "3D" hive plots (in sync if there is more than one hive given).
+>> Added method = prune to manipAxis which allows one to prune (remove) an axis from an HPD.
+>> Modified sumHPD to include a count of edges between each axis pair.
+>> Fixed a warning about "incomplete final line" which NodeInst.csv and EdgeInst.csv were giving.
+>> Fixed a few documentation errors.
+
 ###### Version: 0.2-1
 Date: 12 December 2011
 News:

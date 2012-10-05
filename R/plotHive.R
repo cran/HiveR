@@ -21,9 +21,9 @@ plotHive <- function(HPD, ch = 1, method = "abs",
 
 	if (nx == 1) stop("Something is wrong: only one axis seems to be present")
 
-	# Send out for ranking/norming if requested
+	# Send out for ranking/norming/pruning/inverting if requested
 	
-	if (!method == "abs") HPD <- manipAxis(HPD, method)
+	if (!method == "abs") HPD <- manipAxis(HPD, method, ...)
 
 	nodes <- HPD$nodes
 	edges <- HPD$edges
@@ -232,7 +232,7 @@ plotHive <- function(HPD, ch = 1, method = "abs",
 				rep(180, length(n2$radius)))
 			x = p2cX(r, theta)
 			y = p2cY(r, theta)
-			grid.points(x, y, pch = 20, gp = gpar(cex = nodes$size, col = nodes$color))
+			grid.points(x, y, pch = 20, gp = gpar(cex = c(n1$size, n2$size), col = c(n1$color, n2$color)))
 			}
 
 	# Now label axes
@@ -522,7 +522,8 @@ plotHive <- function(HPD, ch = 1, method = "abs",
 				rep(330, length(n3$radius)))
 			x = p2cX(r, theta)
 			y = p2cY(r, theta)
-			grid.points(x, y, pch = 20, gp = gpar(cex = nodes$size, col = nodes$color))
+			grid.points(x, y, pch = 20, gp = gpar(cex = c(n1$size, n2$size, n3$size),
+			col = c(n1$color, n2$color, n3$color)))
 			}
 
 	# Now label axes
@@ -598,10 +599,9 @@ plotHive <- function(HPD, ch = 1, method = "abs",
 				r.st <- c(r.st, nodes$radius[id1[n]])
 				th.end <- c(th.end, 180)
 				r.end <- c(r.end, nodes$radius[id2[n]])
-				}
-				
 			ecol <- c(ecol, edges$color[n])
 			ewt <- c(ewt, edges$weight[n])
+				}
 			}
 		
 		x0 = p2cX(r.st, th.st)
@@ -626,10 +626,9 @@ plotHive <- function(HPD, ch = 1, method = "abs",
 				r.st <- c(r.st, nodes$radius[id1[n]])
 				th.end <- c(th.end, 270)
 				r.end <- c(r.end, nodes$radius[id2[n]])
-				}
-
 			ecol <- c(ecol, edges$color[n])
 			ewt <- c(ewt, edges$weight[n])
+				}
 			}
 		
 		x0 = p2cX(r.st, th.st)
@@ -654,10 +653,9 @@ plotHive <- function(HPD, ch = 1, method = "abs",
 				r.st <- c(r.st, nodes$radius[id1[n]])
 				th.end <- c(th.end, 0)
 				r.end <- c(r.end, nodes$radius[id2[n]])
+				ecol <- c(ecol, edges$color[n])
+				ewt <- c(ewt, edges$weight[n])
 				}
-
-			ecol <- c(ecol, edges$color[n])
-			ewt <- c(ewt, edges$weight[n])
 			}
 		
 		x0 = p2cX(r.st, th.st)
@@ -682,10 +680,9 @@ plotHive <- function(HPD, ch = 1, method = "abs",
 				r.st <- c(r.st, nodes$radius[id1[n]])
 				th.end <- c(th.end, 90)
 				r.end <- c(r.end, nodes$radius[id2[n]])
-				}
-
 			ecol <- c(ecol, edges$color[n])
 			ewt <- c(ewt, edges$weight[n])
+				}
 			}
 		
 		x0 = p2cX(r.st, th.st)
@@ -710,10 +707,9 @@ plotHive <- function(HPD, ch = 1, method = "abs",
 				r.st <- c(r.st, nodes$radius[id1[n]])
 				th.end <- c(th.end, 0)
 				r.end <- c(r.end, nodes$radius[id2[n]])
+				ecol <- c(ecol, edges$color[n])
+				ewt <- c(ewt, edges$weight[n])
 				}
-
-			ecol <- c(ecol, edges$color[n])
-			ewt <- c(ewt, edges$weight[n])
 			}
 		
 		x0 = p2cX(r.st, th.st)
@@ -738,10 +734,9 @@ plotHive <- function(HPD, ch = 1, method = "abs",
 				r.st <- c(r.st, nodes$radius[id1[n]])
 				th.end <- c(th.end, 270)
 				r.end <- c(r.end, nodes$radius[id2[n]])
+				ecol <- c(ecol, edges$color[n])
+				ewt <- c(ewt, edges$weight[n])
 				}
-
-			ecol <- c(ecol, edges$color[n])
-			ewt <- c(ewt, edges$weight[n])
 			}
 		
 		x0 = p2cX(r.st, th.st)
@@ -766,10 +761,9 @@ plotHive <- function(HPD, ch = 1, method = "abs",
 				r.st <- c(r.st, nodes$radius[id1[n]])
 				th.end <- c(th.end, 180)
 				r.end <- c(r.end, nodes$radius[id2[n]])
-				}
-				
-			ecol <- c(ecol, edges$color[n])
-			ewt <- c(ewt, edges$weight[n])
+				ecol <- c(ecol, edges$color[n])
+				ewt <- c(ewt, edges$weight[n])
+				}				
 			}
 		
 		x0 = p2cX(r.st, th.st)
@@ -794,10 +788,9 @@ plotHive <- function(HPD, ch = 1, method = "abs",
 				r.st <- c(r.st, nodes$radius[id1[n]])
 				th.end <- c(th.end, 90)
 				r.end <- c(r.end, nodes$radius[id2[n]])
-				}
-				
-			ecol <- c(ecol, edges$color[n])
-			ewt <- c(ewt, edges$weight[n])
+				ecol <- c(ecol, edges$color[n])
+				ewt <- c(ewt, edges$weight[n])
+				}				
 			}
 		
 		x0 = p2cX(r.st, th.st)
@@ -882,7 +875,8 @@ plotHive <- function(HPD, ch = 1, method = "abs",
 				rep(0, length(n4$radius)))
 			x = p2cX(r, theta)
 			y = p2cY(r, theta)
-			grid.points(x, y, pch = 20, gp = gpar(cex = nodes$size, col = nodes$color))
+			grid.points(x, y, pch = 20, gp = gpar(cex = c(n1$size, n2$size, n3$size, n4$size),
+			col = c(n1$color, n2$color, n3$color, n4$color)))
 			}
 
 	# Now label axes
@@ -960,10 +954,9 @@ plotHive <- function(HPD, ch = 1, method = "abs",
 				r.st <- c(r.st, nodes$radius[id1[n]])
 				th.end <- c(th.end, 162)
 				r.end <- c(r.end, nodes$radius[id2[n]])
-				}
-				
-			ecol <- c(ecol, edges$color[n])
-			ewt <- c(ewt, edges$weight[n])
+				ecol <- c(ecol, edges$color[n])
+				ewt <- c(ewt, edges$weight[n])
+				}			
 			}
 		
 		x0 = p2cX(r.st, th.st)
@@ -988,10 +981,9 @@ plotHive <- function(HPD, ch = 1, method = "abs",
 				r.st <- c(r.st, nodes$radius[id1[n]])
 				th.end <- c(th.end, 234)
 				r.end <- c(r.end, nodes$radius[id2[n]])
+				ecol <- c(ecol, edges$color[n])
+				ewt <- c(ewt, edges$weight[n])
 				}
-
-			ecol <- c(ecol, edges$color[n])
-			ewt <- c(ewt, edges$weight[n])
 			}
 		
 		x0 = p2cX(r.st, th.st)
@@ -1016,10 +1008,9 @@ plotHive <- function(HPD, ch = 1, method = "abs",
 				r.st <- c(r.st, nodes$radius[id1[n]])
 				th.end <- c(th.end, 306)
 				r.end <- c(r.end, nodes$radius[id2[n]])
+				ecol <- c(ecol, edges$color[n])
+				ewt <- c(ewt, edges$weight[n])
 				}
-
-			ecol <- c(ecol, edges$color[n])
-			ewt <- c(ewt, edges$weight[n])
 			}
 		
 		x0 = p2cX(r.st, th.st)
@@ -1044,10 +1035,9 @@ plotHive <- function(HPD, ch = 1, method = "abs",
 				r.st <- c(r.st, nodes$radius[id1[n]])
 				th.end <- c(th.end, 18)
 				r.end <- c(r.end, nodes$radius[id2[n]])
+				ecol <- c(ecol, edges$color[n])
+				ewt <- c(ewt, edges$weight[n])
 				}
-
-			ecol <- c(ecol, edges$color[n])
-			ewt <- c(ewt, edges$weight[n])
 			}
 		
 		x0 = p2cX(r.st, th.st)
@@ -1072,10 +1062,9 @@ plotHive <- function(HPD, ch = 1, method = "abs",
 				r.st <- c(r.st, nodes$radius[id1[n]])
 				th.end <- c(th.end, 90)
 				r.end <- c(r.end, nodes$radius[id2[n]])
+				ecol <- c(ecol, edges$color[n])
+				ewt <- c(ewt, edges$weight[n])
 				}
-
-			ecol <- c(ecol, edges$color[n])
-			ewt <- c(ewt, edges$weight[n])
 			}
 		
 		x0 = p2cX(r.st, th.st)
@@ -1101,10 +1090,9 @@ plotHive <- function(HPD, ch = 1, method = "abs",
 				r.st <- c(r.st, nodes$radius[id1[n]])
 				th.end <- c(th.end, 18)
 				r.end <- c(r.end, nodes$radius[id2[n]])
+				ecol <- c(ecol, edges$color[n])
+				ewt <- c(ewt, edges$weight[n])
 				}
-
-			ecol <- c(ecol, edges$color[n])
-			ewt <- c(ewt, edges$weight[n])
 			}
 		
 		x0 = p2cX(r.st, th.st)
@@ -1129,10 +1117,9 @@ plotHive <- function(HPD, ch = 1, method = "abs",
 				r.st <- c(r.st, nodes$radius[id1[n]])
 				th.end <- c(th.end, 306)
 				r.end <- c(r.end, nodes$radius[id2[n]])
+				ecol <- c(ecol, edges$color[n])
+				ewt <- c(ewt, edges$weight[n])
 				}
-
-			ecol <- c(ecol, edges$color[n])
-			ewt <- c(ewt, edges$weight[n])
 			}
 		
 		x0 = p2cX(r.st, th.st)
@@ -1157,10 +1144,9 @@ plotHive <- function(HPD, ch = 1, method = "abs",
 				r.st <- c(r.st, nodes$radius[id1[n]])
 				th.end <- c(th.end, 234)
 				r.end <- c(r.end, nodes$radius[id2[n]])
+				ecol <- c(ecol, edges$color[n])
+				ewt <- c(ewt, edges$weight[n])
 				}
-
-			ecol <- c(ecol, edges$color[n])
-			ewt <- c(ewt, edges$weight[n])
 			}
 		
 		x0 = p2cX(r.st, th.st)
@@ -1185,10 +1171,9 @@ plotHive <- function(HPD, ch = 1, method = "abs",
 				r.st <- c(r.st, nodes$radius[id1[n]])
 				th.end <- c(th.end, 162)
 				r.end <- c(r.end, nodes$radius[id2[n]])
+				ecol <- c(ecol, edges$color[n])
+				ewt <- c(ewt, edges$weight[n])
 				}
-				
-			ecol <- c(ecol, edges$color[n])
-			ewt <- c(ewt, edges$weight[n])
 			}
 		
 		x0 = p2cX(r.st, th.st)
@@ -1213,10 +1198,9 @@ plotHive <- function(HPD, ch = 1, method = "abs",
 				r.st <- c(r.st, nodes$radius[id1[n]])
 				th.end <- c(th.end, 90)
 				r.end <- c(r.end, nodes$radius[id2[n]])
+				ecol <- c(ecol, edges$color[n])
+				ewt <- c(ewt, edges$weight[n])
 				}
-				
-			ecol <- c(ecol, edges$color[n])
-			ewt <- c(ewt, edges$weight[n])
 			}
 		
 		x0 = p2cX(r.st, th.st)
@@ -1311,7 +1295,8 @@ plotHive <- function(HPD, ch = 1, method = "abs",
 				rep(18, length(n5$radius)))
 			x = p2cX(r, theta)
 			y = p2cY(r, theta)
-			grid.points(x, y, pch = 20, gp = gpar(cex = nodes$size, col = nodes$color))
+			grid.points(x, y, pch = 20, gp = gpar(cex = c(n1$size, n2$size, n3$size, n4$size, n5$size),
+			col = c(n1$color, n2$color, n3$color, n4$color, n5$color)))
 			}
 
 	# Now label axes
@@ -1392,10 +1377,9 @@ plotHive <- function(HPD, ch = 1, method = "abs",
 				r.st <- c(r.st, nodes$radius[id1[n]])
 				th.end <- c(th.end, 150)
 				r.end <- c(r.end, nodes$radius[id2[n]])
+				ecol <- c(ecol, edges$color[n])
+				ewt <- c(ewt, edges$weight[n])
 				}
-				
-			ecol <- c(ecol, edges$color[n])
-			ewt <- c(ewt, edges$weight[n])
 			}
 		
 		x0 = p2cX(r.st, th.st)
@@ -1420,10 +1404,9 @@ plotHive <- function(HPD, ch = 1, method = "abs",
 				r.st <- c(r.st, nodes$radius[id1[n]])
 				th.end <- c(th.end, 210)
 				r.end <- c(r.end, nodes$radius[id2[n]])
+				ecol <- c(ecol, edges$color[n])
+				ewt <- c(ewt, edges$weight[n])
 				}
-
-			ecol <- c(ecol, edges$color[n])
-			ewt <- c(ewt, edges$weight[n])
 			}
 		
 		x0 = p2cX(r.st, th.st)
@@ -1448,10 +1431,8 @@ plotHive <- function(HPD, ch = 1, method = "abs",
 				r.st <- c(r.st, nodes$radius[id1[n]])
 				th.end <- c(th.end, 270)
 				r.end <- c(r.end, nodes$radius[id2[n]])
-				}
-
-			ecol <- c(ecol, edges$color[n])
-			ewt <- c(ewt, edges$weight[n])
+				ecol <- c(ecol, edges$color[n])
+				ewt <- c(ewt, edges$weight[n])				}
 			}
 		
 		x0 = p2cX(r.st, th.st)
@@ -1476,10 +1457,8 @@ plotHive <- function(HPD, ch = 1, method = "abs",
 				r.st <- c(r.st, nodes$radius[id1[n]])
 				th.end <- c(th.end, 330)
 				r.end <- c(r.end, nodes$radius[id2[n]])
-				}
-
-			ecol <- c(ecol, edges$color[n])
-			ewt <- c(ewt, edges$weight[n])
+				ecol <- c(ecol, edges$color[n])
+				ewt <- c(ewt, edges$weight[n])				}
 			}
 		
 		x0 = p2cX(r.st, th.st)
@@ -1504,10 +1483,8 @@ plotHive <- function(HPD, ch = 1, method = "abs",
 				r.st <- c(r.st, nodes$radius[id1[n]])
 				th.end <- c(th.end, 390)
 				r.end <- c(r.end, nodes$radius[id2[n]])
-				}
-
-			ecol <- c(ecol, edges$color[n])
-			ewt <- c(ewt, edges$weight[n])
+				ecol <- c(ecol, edges$color[n])
+				ewt <- c(ewt, edges$weight[n])				}
 			}
 		
 		x0 = p2cX(r.st, th.st)
@@ -1532,10 +1509,8 @@ plotHive <- function(HPD, ch = 1, method = "abs",
 				r.st <- c(r.st, nodes$radius[id1[n]])
 				th.end <- c(th.end, 90)
 				r.end <- c(r.end, nodes$radius[id2[n]])
-				}
-
-			ecol <- c(ecol, edges$color[n])
-			ewt <- c(ewt, edges$weight[n])
+				ecol <- c(ecol, edges$color[n])
+				ewt <- c(ewt, edges$weight[n])				}
 			}
 		
 		x0 = p2cX(r.st, th.st)
@@ -1560,10 +1535,8 @@ plotHive <- function(HPD, ch = 1, method = "abs",
 				r.st <- c(r.st, nodes$radius[id1[n]])
 				th.end <- c(th.end, 390)
 				r.end <- c(r.end, nodes$radius[id2[n]])
-				}
-
-			ecol <- c(ecol, edges$color[n])
-			ewt <- c(ewt, edges$weight[n])
+				ecol <- c(ecol, edges$color[n])
+				ewt <- c(ewt, edges$weight[n])				}
 			}
 		
 		x0 = p2cX(r.st, th.st)
@@ -1588,10 +1561,8 @@ plotHive <- function(HPD, ch = 1, method = "abs",
 				r.st <- c(r.st, nodes$radius[id1[n]])
 				th.end <- c(th.end, 330)
 				r.end <- c(r.end, nodes$radius[id2[n]])
-				}
-
-			ecol <- c(ecol, edges$color[n])
-			ewt <- c(ewt, edges$weight[n])
+				ecol <- c(ecol, edges$color[n])
+				ewt <- c(ewt, edges$weight[n])				}
 			}
 		
 		x0 = p2cX(r.st, th.st)
@@ -1616,10 +1587,8 @@ plotHive <- function(HPD, ch = 1, method = "abs",
 				r.st <- c(r.st, nodes$radius[id1[n]])
 				th.end <- c(th.end, 270)
 				r.end <- c(r.end, nodes$radius[id2[n]])
-				}
-
-			ecol <- c(ecol, edges$color[n])
-			ewt <- c(ewt, edges$weight[n])
+				ecol <- c(ecol, edges$color[n])
+				ewt <- c(ewt, edges$weight[n])				}
 			}
 		
 		x0 = p2cX(r.st, th.st)
@@ -1644,10 +1613,8 @@ plotHive <- function(HPD, ch = 1, method = "abs",
 				r.st <- c(r.st, nodes$radius[id1[n]])
 				th.end <- c(th.end, 210)
 				r.end <- c(r.end, nodes$radius[id2[n]])
-				}
-
-			ecol <- c(ecol, edges$color[n])
-			ewt <- c(ewt, edges$weight[n])
+				ecol <- c(ecol, edges$color[n])
+				ewt <- c(ewt, edges$weight[n])				}
 			}
 		
 		x0 = p2cX(r.st, th.st)
@@ -1672,10 +1639,8 @@ plotHive <- function(HPD, ch = 1, method = "abs",
 				r.st <- c(r.st, nodes$radius[id1[n]])
 				th.end <- c(th.end, 150)
 				r.end <- c(r.end, nodes$radius[id2[n]])
-				}
-				
-			ecol <- c(ecol, edges$color[n])
-			ewt <- c(ewt, edges$weight[n])
+				ecol <- c(ecol, edges$color[n])
+				ewt <- c(ewt, edges$weight[n])				}
 			}
 		
 		x0 = p2cX(r.st, th.st)
@@ -1700,10 +1665,8 @@ plotHive <- function(HPD, ch = 1, method = "abs",
 				r.st <- c(r.st, nodes$radius[id1[n]])
 				th.end <- c(th.end, 90)
 				r.end <- c(r.end, nodes$radius[id2[n]])
-				}
-				
-			ecol <- c(ecol, edges$color[n])
-			ewt <- c(ewt, edges$weight[n])
+				ecol <- c(ecol, edges$color[n])
+				ewt <- c(ewt, edges$weight[n])				}
 			}
 		
 		x0 = p2cX(r.st, th.st)
@@ -1803,8 +1766,7 @@ plotHive <- function(HPD, ch = 1, method = "abs",
 	# Now add nodes
 	
 		if (dr.nodes) {
-			r <- c(n1$radius, n2$radius, n3$radius, n4$radius,
-				n5$radius, n6$radius) 
+			r <- c(n1$radius, n2$radius, n3$radius, n4$radius, n5$radius, n6$radius) 
 			theta <- c(rep(90, length(n1$radius)),
 				rep(150, length(n2$radius)),
 				rep(210, length(n3$radius)),
@@ -1813,7 +1775,8 @@ plotHive <- function(HPD, ch = 1, method = "abs",
 				rep(390, length(n6$radius)))
 			x = p2cX(r, theta)
 			y = p2cY(r, theta)
-			grid.points(x, y, pch = 20, gp = gpar(cex = nodes$size, col = nodes$color))
+			grid.points(x, y, pch = 20, gp = gpar(cex = c(n1$size, n2$size, n3$size, n4$size, n5$size, n6$size),
+			col = c(n1$color, n2$color, n3$color, n4$color, n5$color, n6$color)))
 			}
 
 	# Now label axes

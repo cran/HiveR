@@ -1,6 +1,6 @@
 
 
-manipAxis <- function(HPD, method, action = NULL) {
+manipAxis <- function(HPD, method, action = NULL, ...) {
 	
 	# Function to rank or norm a Hive Plot Object
 	# Part of Hive3dR
@@ -226,6 +226,41 @@ manipAxis <- function(HPD, method, action = NULL) {
 				}
 			}	
 		} # end of method == "invert"
+
+	if (method == "prune") {
+	
+		if (is.null(action)) stop("You must supply action")	
+		if (!length(action) == 1) stop("Action must give only one axis to prune")
+		if ((action > max(nodes$axis)) | (action < 1)) stop("Axis to prune is < 1 or  > no. of axes")
+	
+		rem <- subset(nodes, axis == action)
+		nodes <- subset(nodes, !axis == action)
+		if (action == 1) nodes$axis <- nodes$axis - 1L
+		if (action == 2) {
+			ch <- which(nodes$axis >= 3)
+			nodes$axis[ch] <- nodes$axis[ch] - 1L
+			}
+		if (action == 3) {
+			ch <- which(nodes$axis >= 4)
+			nodes$axis[ch] <- nodes$axis[ch] - 1L
+			}
+		if (action == 4) {
+			ch <- which(nodes$axis >= 5)
+			nodes$axis[ch] <- nodes$axis[ch] - 1L
+			}
+		if (action == 5) {
+			ch <- which(nodes$axis == 6)
+			nodes$axis[ch] <- nodes$axis[ch] - 1L
+			}  # df nodes fixed!
+
+		edges <- HPD$edges
+		k1 <- !edges$id1 %in% rem$id
+		edges <- edges[k1,]
+		k2 <- !edges$id2 %in% rem$id
+		edges <- edges[k2,]
+		HPD[[2]] <- edges # prune is the only place edges are messed with
+		
+		} # end of method == "prune"
 
 	if (method == "ranknorm") { # rank first, then norm
 	

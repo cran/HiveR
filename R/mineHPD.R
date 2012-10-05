@@ -16,6 +16,8 @@ mineHPD <- function(HPD, option = "rad <- tot.edge.count") {
 	nodes <- HPD$nodes
 	nn <- length(nodes$id)
 
+### ++++++++++++++++++++++++++++++++++++++++++++++++++++ ###
+
 	if (option == "rad <- tot.edge.count") {
 
 # This option assigns a radius value to a node
@@ -112,6 +114,109 @@ mineHPD <- function(HPD, option = "rad <- tot.edge.count") {
 		
 		}  ##### end of option == "remove orphans"
 
+### ++++++++++++++++++++++++++++++++++++++++++++++++++++ ###
+
+	if (option == "remove self edge") {
+
+# This option removes edges which start and end on the same node
+# It re-uses code from sumHPD
+
+	# Create a list of edges to be drawn
+	
+	n1.lab <- n1.rad <- n2.lab <- n2.rad <- n1.ax <- n2.ax <- c()
+
+	for (n in 1:(length(HPD$edges$id1))) {
+		pat1 <- HPD$edges$id1[n]
+		pat2 <- HPD$edges$id2[n]
+		pat1 <- paste("\\b", pat1, "\\b", sep = "") # ensures exact match
+		pat2 <- paste("\\b", pat2, "\\b", sep = "")
+		i1 <- grep(pat1, HPD$nodes$id)
+		i2 <- grep(pat2, HPD$nodes$id)
+		n1.lab <- c(n1.lab, HPD$nodes$lab[i1])
+		n2.lab <- c(n2.lab, HPD$nodes$lab[i2])
+		n1.rad <- c(n1.rad, HPD$nodes$radius[i1])
+		n2.rad <- c(n2.rad, HPD$nodes$radius[i2])
+		n1.ax <- c(n1.ax, HPD$nodes$axis[i1])
+		n2.ax <- c(n2.ax, HPD$nodes$axis[i2])
+		}
+
+	fd <- data.frame(
+		n1.id = HPD$edges$id1,
+		n1.ax,
+		n1.lab,
+		n1.rad,
+		n2.id = HPD$edges$id2,
+		n2.ax,
+		n2.lab,
+		n2.rad,
+		e.wt = HPD$edges$weight,
+		e.col = HPD$edges$color)		
+
+	prob <- which(fd$n1.lab == fd$n2.lab)
+	if (length(prob) == 0) cat("\n\t No edges were found that start and end on the same node\n")
+	if (length(prob) > 0) {
+
+		bad.e <- c()
+		for (n in 1:(length(HPD$edges$id1))) {
+			pat1 <- HPD$edges$id1[n]
+			pat2 <- HPD$edges$id2[n]
+			if (pat1 == pat2) bad.e <- c(bad.e, n)
+			}
+			
+		edges <- edges[-bad.e,]
+		cat("\n\t", length(bad.e), "edges that start and end on the same node were removed\n")
+		}
+		
+		}  ##### end of option == "remove self edge"
+
+### ++++++++++++++++++++++++++++++++++++++++++++++++++++ ###
+
+	if (option == "remove zero edge") {
+
+# This option removes edges with length zero
+# This includes edges that start and end at the same node (self edges, above)
+# as well as edges that are zero because the axis and radius of the start
+# and end nodes just happen to be the same.
+
+	# Create a list of edges to be drawn
+	
+	n1.lab <- n1.rad <- n2.lab <- n2.rad <- n1.ax <- n2.ax <- c()
+
+	for (n in 1:(length(HPD$edges$id1))) {
+		pat1 <- HPD$edges$id1[n]
+		pat2 <- HPD$edges$id2[n]
+		pat1 <- paste("\\b", pat1, "\\b", sep = "") # ensures exact match
+		pat2 <- paste("\\b", pat2, "\\b", sep = "")
+		i1 <- grep(pat1, HPD$nodes$id)
+		i2 <- grep(pat2, HPD$nodes$id)
+		n1.lab <- c(n1.lab, HPD$nodes$lab[i1])
+		n2.lab <- c(n2.lab, HPD$nodes$lab[i2])
+		n1.rad <- c(n1.rad, HPD$nodes$radius[i1])
+		n2.rad <- c(n2.rad, HPD$nodes$radius[i2])
+		n1.ax <- c(n1.ax, HPD$nodes$axis[i1])
+		n2.ax <- c(n2.ax, HPD$nodes$axis[i2])
+		}
+
+	fd <- data.frame(
+		n1.id = HPD$edges$id1,
+		n1.ax,
+		n1.lab,
+		n1.rad,
+		n2.id = HPD$edges$id2,
+		n2.ax,
+		n2.lab,
+		n2.rad,
+		e.wt = HPD$edges$weight,
+		e.col = HPD$edges$color)		
+
+	prob <- which((fd$n1.rad == fd$n2.rad) & (fd$n1.ax == fd$n2.ax))
+	if (length(prob) == 0) cat("\n\t No edges were found that start and end on the same node\n")
+	if (length(prob) > 0) {
+		edges <- edges[-prob,]
+		cat("\n\t", length(prob), "edges that start and end on the same point were removed\n")
+		}
+		
+		}  ##### end of option == "remove zero edge"
 
 ### ++++++++++++++++++++++++++++++++++++++++++++++++++++ ###
 

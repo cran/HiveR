@@ -20,6 +20,8 @@ Logical; if \code{TRUE} then a favorable result is affirmed in the console (prob
 \value{
 A logical value; \code{TRUE} is there is a problem, otherwise \code{FALSE}.
 }
+\seealso{\code{\link{sumHPD}} which allows inspection (checking) of many properties of your \code{\link{HPD}}.
+}
 \references{
 \url{http://academic.depauw.edu/~hanson/HiveR/HiveR.html}
 }

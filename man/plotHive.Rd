@@ -85,7 +85,7 @@ Bryan A. Hanson, DePauw University. \email{hanson@depauw.edu}
 \examples{
 test2 <- ranHiveData(nx = 2)
 test3 <- ranHiveData(nx = 3)
-test4 <- ranHiveData(nx = 4)
+test4 <- ranHiveData(nx = 4, type = "3D")
 #
 # plot one with defaults:
 plotHive(test3)
@@ -110,4 +110,4 @@ plot3dHive(test4)
 }
 \keyword{ plot }
 \keyword{ hplot }
-\keyword{ dynamic }
+\keyword{ interactive }
