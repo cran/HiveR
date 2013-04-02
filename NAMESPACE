@@ -8,8 +8,11 @@ import(
   rgl,
   xtable,
   bipartite,
-  RFOC,
   sna,
   tkrgl,
-  plyr
+  plyr,
+  tcltk
 )
+
+importFrom(tkrgl, spin3d)
+importFrom(plyr, empty)
