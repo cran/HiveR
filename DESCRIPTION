@@ -1,8 +1,8 @@
 Package: HiveR
 Type: Package
 Title: 2D and 3D Hive Plots for R
-Version: 0.2-13
-Date: 2013-08-14
+Version: 0.2-14
+Date: 2013-08-16
 Authors@R: c(person("Bryan", "Hanson", role = c("aut", "cre"), email = "hanson@depauw.edu"),
 		person("Vena", "Memisevic", role = "ctb"),
 		person("Jonathan", "Chung", role = "ctb"))
@@ -14,12 +14,13 @@ Suggests: mvbutils, FuncMap, lattice, reshape, ppiData, RFOC, ggplot2,
         knitr, rgl, bipartite, xtable, sna
 URL: http://academic.depauw.edu/~hanson/HiveR/HiveR.html
 ByteCompile: TRUE
-Packaged: 2013-08-14 23:27:40 UTC; bryanhanson
+Packaged: 2013-08-16 13:39:05 UTC; bryanhanson
 BugReports: https://github.com/bryanhanson/HiveR/issues
 VignetteBuilder: knitr
+Depends: R (>= 3.0)
 Author: Bryan Hanson [aut, cre],
   Vena Memisevic [ctb],
   Jonathan Chung [ctb]
 NeedsCompilation: no
 Repository: CRAN
-Date/Publication: 2013-08-15 06:57:20
+Date/Publication: 2013-08-16 23:54:07
