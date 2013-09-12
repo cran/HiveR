@@ -1,6 +1,6 @@
-677b68ce1a299a2de6185b9f866137bb *DESCRIPTION
+10641ce757cbaad16fadf9f4fe54f97d *DESCRIPTION
 467bb087c65d25635632f7457d84afe3 *NAMESPACE
-32f1b6e57232c10a6a34d9de0e2202f5 *NEWS
+df1a7ceb5f466ffb4c2450559c0a4367 *NEWS
 87e2bc7ed1cc6cb99cc1f6681025d0b4 *R/adj2HPD.R
 6063bd0acbb275baef4b3fe5fad850b3 *R/animateHive.R
 4307163ab13de1c98bf89b8e78312b00 *R/cart2sph.R
@@ -21,8 +21,8 @@ bf2318d56e4e3bfb3b4c549ac5c70719 *data/Arroyo.RData
 ce3481e98f5e8d63cbe7c08f78f4609a *data/Safari.RData
 318a1ab7bc11311a053dff6cb1449cde *inst/CITATION
 c3bb7e5cf0f5789d6f545f115a47a7cd *inst/doc/HiveR.R
-8b9957ff6f5ad066555eecc1383c4141 *inst/doc/HiveR.Rnw
-8fab225c9e81514c09bfc003bcf842fd *inst/doc/HiveR.pdf
+281c3049f60b80c8b482d13ac3125753 *inst/doc/HiveR.Rnw
+7c2fa26ec2e3395d2408825a0d8cd925 *inst/doc/HiveR.pdf
 8af4043bf32a9c07347d58df1c946a73 *inst/extdata/E_coli/E_coli_P.dot
 883dc344675a857c3740adb5f7624ba8 *inst/extdata/E_coli/E_coli_TF.dot
 2158fd13d0ebdad5cfb3900dcd71aad0 *inst/extdata/E_coli/EdgeInst_P.csv
@@ -32,7 +32,7 @@ b078c86f01d745a8d1b44e95a45f1625 *inst/extdata/E_coli/NodeInst_P.csv
 e6ab755432715cafa96bd9d086398b73 *inst/extdata/E_coli/README
 c10b950d6331c99111bdedcee9ecf7f2 *man/Arroyo.Rd
 2de60808393a737f157a0aa96751aa71 *man/HivePlotData.Rd
-be3973c7ec97699d0c427da7da645e22 *man/HiveR-package.Rd
+0d1a04e0e6cec9ad5ec77d1baac2aba9 *man/HiveR-package.Rd
 2092a0b32ddffec7a943cc710c9d9a10 *man/adj2HPD.Rd
 afa9ff49be649b76394b0403a306dd46 *man/animateHive.Rd
 87c6d856ac2608281da53471fcb3048e *man/cart2sph.Rd
@@ -48,7 +48,7 @@ bb2564e0f4246832f45636f0eba3b1b7 *man/plotHive.Rd
 cd78f0d9b5c5a685dab0219c3444ed88 *man/sumHPD.Rd
 d233b4bb68eac8c58794d5e8c4a6bc75 *vignettes/EdgeInst.csv
 b7d84cb36e3b62eb22fa4b4b238eaebc *vignettes/HIVhuH3.RData
-8b9957ff6f5ad066555eecc1383c4141 *vignettes/HiveR.Rnw
+281c3049f60b80c8b482d13ac3125753 *vignettes/HiveR.Rnw
 3b7ee3cf58fa3ab3cdab48a7eb42fc09 *vignettes/HiveR.bib
 a1d032725d90c8123c665b8db0f535c1 *vignettes/graphics/HIVhuH3.png
 bbfd86b7c73c9b38dfaa586dd52f564c *vignettes/graphics/Mapping_1a.pdf
