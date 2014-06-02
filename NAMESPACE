@@ -10,3 +10,5 @@ import(
 
 importFrom(tkrgl, spin3d, spinControl)
 importFrom(plyr, empty, count)
+importFrom(jpeg, readJPEG)
+importFrom(png, readPNG)
