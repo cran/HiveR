@@ -34,7 +34,7 @@ if (Sys.which("pdfcrop") != "") knit_hooks$set(crop = hook_pdfcrop) # use pdfcro
 ## ----PPNdata-------------------------------------------------------------
 data(Safariland)
 
-## ----PPNA, fig.cap = "Safariland data set using visweb", fig.keep = "last"----
+## ----PPNA, fig.cap = "Safariland data set using visweb"------------------
 visweb(Safariland)
 
 ## ----PPN4, fig.cap = "Safariland data set using plotweb"-----------------
@@ -49,26 +49,26 @@ gplot(Safariland, gmode = "graph", edge.lwd = 0.05,
 gplot(Safariland, gmode = "graph", edge.lwd = 0.05,
 	vertex.col = c(rep("green", 9), rep("red", 27)))
 
-## ----PPN2, fig.cap = "Hive Panel comparing Safari with Arroyo"-----------
-data(Safari)
-Safari$nodes$size <- 0.5
-data(Arroyo)
-Arroyo$nodes$size <- 0.5
-
-vplayout <- function(x, y) viewport(layout.pos.row = x, layout.pos.col = y)
-#
-grid.newpage()
-pushViewport(viewport(layout = grid.layout(2, 1)))
-#
-pushViewport(vplayout(1, 1)) # upper plot
-plotHive(Safari, ch = 0.1, axLabs = c("plants", "pollinators"), axLab.pos = c(0.15, 0.15), rot = c(-90, 90), np = FALSE, axLab.gpar = gpar(fontsize = 16, col = "white"))
-grid.text("Safari (undisturbed)", x = 0.5, y = 0.95, default.units = "npc", gp = gpar(fontsize = 20, col = "white"))
-popViewport(2)
-#
-pushViewport(vplayout(2, 1)) # lower plot
-plotHive(Arroyo, ch = 0.1, axLabs = c("plants", "pollinators"), axLab.pos = c(0.15, 0.15), rot = c(-90, 90), np = FALSE, axLab.gpar = gpar(fontsize = 16, col = "white"))
-grid.text("Arroyo (disturbed)", x = 0.5, y = 0.95, default.units = "npc", gp = gpar(fontsize = 20, col = "white"))
-
+## ----PPN2, fig.cap = "Hive Panel comparing Safari with Arroyo", eval = FALSE----
+#  data(Safari)
+#  Safari$nodes$size <- 0.5
+#  data(Arroyo)
+#  Arroyo$nodes$size <- 0.5
+#  
+#  vplayout <- function(x, y) viewport(layout.pos.row = x, layout.pos.col = y)
+#  #
+#  grid.newpage()
+#  pushViewport(viewport(layout = grid.layout(2, 1)))
+#  #
+#  pushViewport(vplayout(1, 1)) # upper plot
+#  plotHive(Safari, ch = 0.1, axLabs = c("plants", "pollinators"), axLab.pos = c(0.15, 0.15), rot = c(-90, 90), np = FALSE, axLab.gpar = gpar(fontsize = 16, col = "white"))
+#  grid.text("Safari (undisturbed)", x = 0.5, y = 0.95, default.units = "npc", gp = gpar(fontsize = 20, col = "white"))
+#  popViewport(2)
+#  #
+#  pushViewport(vplayout(2, 1)) # lower plot
+#  plotHive(Arroyo, ch = 0.1, axLabs = c("plants", "pollinators"), axLab.pos = c(0.15, 0.15), rot = c(-90, 90), np = FALSE, axLab.gpar = gpar(fontsize = 16, col = "white"))
+#  grid.text("Arroyo (disturbed)", x = 0.5, y = 0.95, default.units = "npc", gp = gpar(fontsize = 20, col = "white"))
+#  
 
 ## ----E_coli_1aa, results = "asis"----------------------------------------
 tmp <- readLines("network_tf_gene.parsed.dot")[1595:1605]
@@ -119,6 +119,7 @@ EC4$edges$weight = 0.5
 
 
 ## ----E_coli_2, fig.cap = "Hive panel of E. coli gene regulatory network", out.width = "0.7\\textwidth", fig.width = 2, fig.height = 6----
+vplayout <- function(x, y) viewport(layout.pos.row = x, layout.pos.col = y)
 grid.newpage()
 pushViewport(viewport(layout = grid.layout(3, 1)))
 #
