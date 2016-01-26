@@ -1,9 +1,9 @@
-c718adc18a14e84e4a9ead86bb592909 *DESCRIPTION
+31a07e02b48ac63ca4f2c33d0826504c *DESCRIPTION
 f0a7f9ec11d7b9d25bd4044dcfd6cbc8 *NAMESPACE
-5821e31915787f6e47f6eca6a772c98d *NEWS
+fd35752ffc170cbc85561acc8ba9b487 *NEWS
 987d82e2dc1c0b6c4d336ba41dd0eefc *R/adj2HPD.R
 ac06f6c505b8b1ecd8a576c310ba9ce8 *R/animateHive.R
-314cc9d179d43fcaae2b0341b4a076ad *R/chkHPD.R
+aa862f2f0e6ac3ed7a1fc80b77200750 *R/chkHPD.R
 70109fb65a1c254a1caf0e9ac53dc94e *R/dot2HPD.R
 5352983e4b67346abd8ec19d4cd3ad01 *R/drawHiveSpline.R
 967efb624c2a2ec6d7b2251a128269ac *R/edge2HPD.R
@@ -22,7 +22,7 @@ ce3481e98f5e8d63cbe7c08f78f4609a *data/Safari.RData
 8907006a55d5879eda8445b1d939506b *inst/CITATION
 8275f05f1b0bff3ec2e3bf5fffe5ed51 *inst/doc/HiveR.R
 3480f4916eb2a7c14d8f38c584d3d08f *inst/doc/HiveR.Rnw
-68ba574658ee7310928f64ca1980a1e5 *inst/doc/HiveR.pdf
+9c5d60c236eefebf58ff40c42c44af4b *inst/doc/HiveR.pdf
 8af4043bf32a9c07347d58df1c946a73 *inst/extdata/E_coli/E_coli_P.dot
 883dc344675a857c3740adb5f7624ba8 *inst/extdata/E_coli/E_coli_TF.dot
 2158fd13d0ebdad5cfb3900dcd71aad0 *inst/extdata/E_coli/EdgeInst_P.csv
