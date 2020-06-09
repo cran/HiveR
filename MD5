@@ -1,7 +1,7 @@
-4074abeca7cdf21efd646322d41eef2d *DESCRIPTION
+3c659b50d11b2e9dd48ec878f2bb9391 *DESCRIPTION
 a4b0e6a00fe12e5d92dc7d1466e506ba *NAMESPACE
 c0f2a36e529b082e6227009a060ef356 *NEWS
-2b1cef5d75d2793464f692efc00d7a53 *NEWS.md
+96d212d80fad1bbda5912dc27f54b4a5 *NEWS.md
 21b59a03353b1b9e5441195650c304fd *R/Arroyo.R
 eaabf66de8e932246ba00f5c621cc2ef *R/HEC.R
 06f6c71e185a8220508b3731f13848a6 *R/HidingAnAxis.R
@@ -21,14 +21,14 @@ dddcf029152587a38a162f5403425587 *R/ranHiveData.R
 d84aba6c6aa9a1781baa106bd08d1776 *R/rcsr.R
 29813f33e73e689d364777258126d1ac *R/sph2cart.R
 6104de4ce749990f4d5b2844da80e382 *R/sumHPD.R
-422f86f89fe6a1a2f0b1e104c37a2c67 *build/vignette.rds
+05df64bc6616ebe899bf6b698d00b63c *build/vignette.rds
 bf2318d56e4e3bfb3b4c549ac5c70719 *data/Arroyo.RData
 76a623567003620910a7c7ba4d17e491 *data/HEC.RData
 ce3481e98f5e8d63cbe7c08f78f4609a *data/Safari.RData
 8907006a55d5879eda8445b1d939506b *inst/CITATION
 8268e6705f8f7f757fdcfd57301dce9d *inst/doc/HiveR.R
-18a82983be7e3304268859191ed9589a *inst/doc/HiveR.Rmd
-4812b9c961fbc9cead82e229f686a0a3 *inst/doc/HiveR.pdf
+773c1f27afac190912a7f04eb13171d4 *inst/doc/HiveR.Rmd
+d420bd7034f16e5c57d8b8b0adb773f1 *inst/doc/HiveR.pdf
 8af4043bf32a9c07347d58df1c946a73 *inst/extdata/E_coli/E_coli_P.dot
 883dc344675a857c3740adb5f7624ba8 *inst/extdata/E_coli/E_coli_TF.dot
 2158fd13d0ebdad5cfb3900dcd71aad0 *inst/extdata/E_coli/EdgeInst_P.csv
@@ -65,7 +65,7 @@ e5367ecaf9fd589800f076d53ca6b79c *man/sumHPD.Rd
 b2a09f91a3753f53f9cb685af663a68b *vignettes/Abbrev2ndCitation.tex
 d233b4bb68eac8c58794d5e8c4a6bc75 *vignettes/EdgeInst.csv
 b7d84cb36e3b62eb22fa4b4b238eaebc *vignettes/HIVhuH3.RData
-18a82983be7e3304268859191ed9589a *vignettes/HiveR.Rmd
+773c1f27afac190912a7f04eb13171d4 *vignettes/HiveR.Rmd
 155c65542045e9388858168826ad6fa4 *vignettes/HiveR.bib
 a1d032725d90c8123c665b8db0f535c1 *vignettes/images/HIVhuH3.png
 dfc1de993ce034795774f5273cc37063 *vignettes/images/Mapping_1ab.pdf
